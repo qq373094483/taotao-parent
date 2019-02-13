@@ -13,6 +13,11 @@
     <packaging>war</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>com.taotao</groupId>
+            <artifactId>taotao-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -70,7 +75,7 @@
             <!-- 配置Tomcat插件 -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat8-maven-plugin</artifactId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
                     <path>/</path>
                     <port>8081</port>
