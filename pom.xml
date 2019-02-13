@@ -255,10 +255,29 @@
                 <!-- 配置Tomcat插件 -->
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
+                    <artifactId>tomcat8-maven-plugin</artifactId>
+                    <version>3.0-r1756463</version>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
+    <!--使用Maven中的<pluginRepositories> ,<pluginRepositories>是用来配置插件地址的，因为maven的所有功能都是使用插件来实现功能的，因此需要从特定的地址下载插件包。-->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>alfresco-public</id>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>alfresco-public-snapshots</id>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public-snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+        <!--<pluginRepository>
+            <id>beardedgeeks-releases</id>
+            <url>http://beardedgeeks.googlecode.com/svn/repository/releases</url>
+        </pluginRepository>-->
+    </pluginRepositories>
 </project>
