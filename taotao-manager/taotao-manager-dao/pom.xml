@@ -45,4 +45,24 @@
             <artifactId>druid</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <!--构建时，把资源文件发布到类目录下，可以在dataSource中定义的mapperLocations中设置来替代-->
+       <resources>
+            <!--如果不写，默认会在resources目录中定位mapper.xml文件-->
+           <!-- <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/mapper/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>-->
+        </resources>
+    </build>
 </project>
