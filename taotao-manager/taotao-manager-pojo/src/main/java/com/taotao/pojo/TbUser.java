@@ -2,7 +2,7 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
-public class TbUser {
+public class TbUser extends BasePO {
     private Long id;
 
     private String username;

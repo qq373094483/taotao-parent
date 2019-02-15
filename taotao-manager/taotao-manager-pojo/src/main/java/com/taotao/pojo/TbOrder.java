@@ -2,7 +2,7 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
-public class TbOrder {
+public class TbOrder extends BasePO {
     private String orderId;
 
     private String payment;

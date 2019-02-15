@@ -2,7 +2,7 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
-public class TbItemCat {
+public class TbItemCat extends BasePO {
     private Long id;
 
     private Long parentId;

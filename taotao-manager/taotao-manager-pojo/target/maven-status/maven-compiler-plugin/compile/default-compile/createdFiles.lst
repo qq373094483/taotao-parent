@@ -5,6 +5,7 @@ com\taotao\pojo\TbItemParamExample$Criterion.class
 com\taotao\pojo\TbContentCategory.class
 com\taotao\pojo\TbItemParamItemExample$Criterion.class
 com\taotao\pojo\TbOrderShippingExample$Criteria.class
+com\taotao\pojo\BasePO.class
 com\taotao\pojo\TbItemExample$Criterion.class
 com\taotao\pojo\TbItemDesc.class
 com\taotao\pojo\TbItemCatExample$Criterion.class
