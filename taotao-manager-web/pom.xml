@@ -97,6 +97,12 @@
             <groupId>com.github.sgroschupf</groupId>
             <artifactId>zkclient</artifactId>
         </dependency>
+        <!--可以不加，不加会报警告: Hessian/Burlap: 'com.github.pagehelper.Page' is an unknown class in WebappClassLoader
+            但可以不管，因为Page的父类是ArrayList，虽然在web层没有找到Page，但依然能找到其父类-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
