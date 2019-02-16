@@ -20,4 +20,5 @@
     <dubbo:protocol name="dubbo" port="20880" />
     <!-- 声明需要暴露的服务接口 ,默认timeout为1000，并且会调用时重试3次，也就是3秒-->
     <dubbo:service interface="com.taotao.service.ItemService" ref="itemServiceImpl" timeout="300000"/>
+    <dubbo:service interface="com.taotao.service.ItemCatService" ref="itemCatServiceImpl" timeout="300000"/>
 </beans>
