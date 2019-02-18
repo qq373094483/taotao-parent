@@ -16,5 +16,11 @@
         <module>taotao-content-service</module>
     </modules>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.taotao</groupId>
+            <artifactId>taotao-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
