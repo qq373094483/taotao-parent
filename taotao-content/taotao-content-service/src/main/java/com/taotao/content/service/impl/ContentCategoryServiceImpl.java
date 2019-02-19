@@ -25,7 +25,7 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
             EasyUITreeNode easyUITreeNode = new EasyUITreeNode();
             easyUITreeNode.setId(tbContentCategorie.getId());
             easyUITreeNode.setText(tbContentCategorie.getName());
-            easyUITreeNode.setState(tbContentCategorie.getIsParent()?"close":"open");
+            easyUITreeNode.setState(tbContentCategorie.getIsParent()?"closed":"open");
             return easyUITreeNode;
         }).collect(Collectors.toList());
     }
