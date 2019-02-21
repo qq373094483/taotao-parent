@@ -18,6 +18,11 @@
             <artifactId>taotao-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.taotao</groupId>
+            <artifactId>taotao-content-interface</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!--<dependency>
             <groupId>com.taotao</groupId>
             <artifactId>taotao-manager-interface</artifactId>

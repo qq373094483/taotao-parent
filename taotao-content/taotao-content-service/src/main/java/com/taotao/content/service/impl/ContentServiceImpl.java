@@ -4,10 +4,13 @@ import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.content.service.ContentService;
 import com.taotao.mapper.TbContentMapper;
 import com.taotao.pojo.TbContent;
+import com.taotao.pojo.TbContentCategoryExample;
+import com.taotao.pojo.TbContentExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ContentServiceImpl implements ContentService {
@@ -21,5 +24,13 @@ public class ContentServiceImpl implements ContentService {
         //插入到内容表
         tbContentMapper.insert(tbContent);
         return TaotaoResult.ok();
+    }
+
+    @Override
+    public List<TbContent> getContentByCid(Long cid) {
+        TbContentExample tbContentExample = new TbContentExample();
+        TbContentExample.Criteria criteria = tbContentExample.createCriteria();
+        criteria.andCategoryIdEqualTo(cid);
+        return tbContentMapper.selectByExample(tbContentExample);
     }
 }
