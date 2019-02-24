@@ -51,7 +51,7 @@ public class TestSolrJ {
 	@Test
 	public void searchDocumet() throws Exception {
 		//创建一个SolrServer对象
-		SolrServer solrServer = new HttpSolrServer("http://192.168.25.154:8080/solr/collection1");
+		SolrServer solrServer = new HttpSolrServer("http://zookeeper01:8080/solr/collection1");
 		//创建一个SolrQuery对象
 		SolrQuery query = new SolrQuery();
 		//设置查询条件、过滤条件、分页条件、排序条件、高亮
