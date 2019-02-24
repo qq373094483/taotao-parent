@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="com.taotao.solrj.TestSolrJ" time="2.555" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="com.taotao.solrj.TestSolrJ" time="2.998" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2018.1.4"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -64,8 +64,8 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.taotao.solrj.TestSolrJ" name="searchDocumet" time="2.461"/>
-  <testcase classname="com.taotao.solrj.TestSolrJ" name="deleteDocumentByQuery" time="0.012"/>
-  <testcase classname="com.taotao.solrj.TestSolrJ" name="testAddDocument" time="0.048"/>
-  <testcase classname="com.taotao.solrj.TestSolrJ" name="deleteDocumentById" time="0.034"/>
+  <testcase classname="com.taotao.solrj.TestSolrJ" name="searchDocumet" time="2.863"/>
+  <testcase classname="com.taotao.solrj.TestSolrJ" name="deleteDocumentByQuery" time="0.027"/>
+  <testcase classname="com.taotao.solrj.TestSolrJ" name="testAddDocument" time="0.081"/>
+  <testcase classname="com.taotao.solrj.TestSolrJ" name="deleteDocumentById" time="0.027"/>
 </testsuite>
