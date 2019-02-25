@@ -18,7 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class GlobalExceptionResolver implements HandlerExceptionResolver {
 
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionResolver.class);
-	
+
+	/**
+	 *
+	 * @param request
+	 * @param response
+	 * @param handler 是controller里的方法
+	 * @param e
+	 * @return
+	 */
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, 
 			Object handler,	Exception e) {
@@ -30,7 +38,7 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
 		logger.error("系统发生异常", e);
 		//发邮件
 		//jmail
-		//发短信
+		//发短信 https://www.1688voip.cn/
 		//展示错误页面
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("message", "您的电脑有问题，请稍后重试。");

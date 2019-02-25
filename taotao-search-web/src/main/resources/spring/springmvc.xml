@@ -19,6 +19,8 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
+    <!--配置全局异常处理器 -->
+    <bean class="com.taotao.search.exception.GlobalExceptionResolver"/>
     <!-- 配置包扫描器，扫描@Controller注解的类 -->
     <context:component-scan base-package="com.taotao.search.controller"/>
     <!-- 配置资源映射,否则会被拦截而无法加载静态资源,location的值最后一个"/"必须有，否则映射不过去。在这里不需要， 这个项目不拦截静态资源-->
