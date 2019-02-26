@@ -22,24 +22,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.32" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid:1.0.9" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: com.alibaba:jconsole:1.8.0">
-        <CLASSES>
-          <root url="jar://D:/Java/jdk1.8.0_151/lib/jconsole.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Maven: com.alibaba:tools:1.8.0">
-        <CLASSES>
-          <root url="jar://D:/Java/jdk1.8.0_151/lib/tools.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module" module-name="taotao-common" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.3.2" level="project" />
