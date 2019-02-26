@@ -24,13 +24,9 @@ public class SpringActivemq {
 		//从容器中获得Destination对象
 		Destination destination = (Destination) applicationContext.getBean("test-queue");
 		//发送消息
-		jmsTemplate.send(destination, new MessageCreator() {
-			
-			@Override
-			public Message createMessage(Session session) throws JMSException {
-				TextMessage message = session.createTextMessage("spring activemq send queue message");
-				return message;
-			}
+		jmsTemplate.send(destination, session -> {
+			TextMessage message = session.createTextMessage("spring activemq send queue message");
+			return message;
 		});
 		
 	}
