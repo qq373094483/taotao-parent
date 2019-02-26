@@ -12,8 +12,13 @@ import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.jms.*;
+import java.awt.font.TextMeasurer;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +31,11 @@ public class ItemServiceImpl implements ItemService {
     private TbItemMapper tbItemMapper;
     @Autowired
     private TbItemDescMapper tbItemDescMapper;
+    @Autowired
+    private JmsTemplate jmsTemplate;
+    @Resource(name = "itemAddtopic")
+    private Destination destination;
+
     @Override
     public TbItem getItemById(Long itemId) {
         return tbItemMapper.selectByPrimaryKey(itemId);
@@ -33,7 +43,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public EasyUIDataGridResult<TbItem> getItemList(Integer page, Integer rows) {
-        PageHelper.startPage(page,rows);
+        PageHelper.startPage(page, rows);
         TbItemExample tbItemExample = new TbItemExample();
         //web层如果不加pagehelper依赖就会报警告说Page类不存在
         List<TbItem> tbItems = tbItemMapper.selectByExample(tbItemExample);
@@ -61,6 +71,8 @@ public class ItemServiceImpl implements ItemService {
         itemDesc.setCreated(new Date());
         //向商品描述表插入数据
         tbItemDescMapper.insert(itemDesc);
+        //向Activemq发送商品添加消息
+        jmsTemplate.send(destination, session -> session.createTextMessage(itemId + ""));
         //返回结果
         return TaotaoResult.ok();
     }
