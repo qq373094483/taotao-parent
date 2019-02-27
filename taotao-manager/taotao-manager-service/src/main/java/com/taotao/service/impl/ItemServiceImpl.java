@@ -60,7 +60,7 @@ public class ItemServiceImpl implements ItemService {
         }
         TbItem tbItem = tbItemMapper.selectByPrimaryKey(itemId);
         try {
-            jedisClient.set(ITEM_INFO+":" + itemId + ":BASE", JsonUtils.objectToJson(itemId));
+            jedisClient.set(ITEM_INFO+":" + itemId + ":BASE", JsonUtils.objectToJson(tbItem));
             jedisClient.expire(ITEM_INFO + ":" + itemId + ":BASE",ITEM_EXPIRE );
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,7 +116,7 @@ public class ItemServiceImpl implements ItemService {
         }
         TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(itemId);
         try {
-            jedisClient.set(ITEM_INFO+":" + itemId + ":DESC", JsonUtils.objectToJson(itemId));
+            jedisClient.set(ITEM_INFO+":" + itemId + ":DESC", JsonUtils.objectToJson(tbItemDesc));
             jedisClient.expire(ITEM_INFO + ":" + itemId + ":DESC",ITEM_EXPIRE );
         } catch (Exception e) {
             e.printStackTrace();
