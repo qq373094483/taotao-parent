@@ -21,7 +21,7 @@
     </bean>
     <!-- 配置包扫描器，扫描@Controller注解的类 -->
     <context:component-scan base-package="com.taotao.controller"/>
-    <!-- 配置资源映射,会被拦截而无法加载静态资源,location的值最后一个"/"必须有，否则映射不过去 -->
+    <!-- 配置资源映射,否则会被拦截而无法加载静态资源,location的值最后一个"/"必须有，否则映射不过去 -->
     <mvc:resources location="/static/css/" mapping="/css/**"/>
     <mvc:resources location="/static/js/" mapping="/js/**"/>
     <!-- 多媒体解析器 -->
