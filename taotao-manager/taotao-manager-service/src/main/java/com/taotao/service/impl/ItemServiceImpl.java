@@ -5,13 +5,17 @@ import com.github.pagehelper.PageInfo;
 import com.taotao.common.pojo.EasyUIDataGridResult;
 import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.common.utils.IDUtils;
+import com.taotao.common.utils.JsonUtils;
+import com.taotao.jedis.JedisClient;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
@@ -36,9 +40,32 @@ public class ItemServiceImpl implements ItemService {
     @Resource(name = "itemAddtopic")
     private Destination destination;
 
+    @Autowired
+    private JedisClient jedisClient;
+
+    @Value("${ITEM_INFO}")
+    private String ITEM_INFO;
+    @Value("${ITEM_EXPIRE}")
+    private Integer ITEM_EXPIRE;
+
     @Override
     public TbItem getItemById(Long itemId) {
-        return tbItemMapper.selectByPrimaryKey(itemId);
+        try {
+            String json = jedisClient.get(ITEM_INFO + ":" + itemId + ":BASE");
+            if (StringUtils.isNotBlank(json)) {
+                return JsonUtils.jsonToPojo(json, TbItem.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        TbItem tbItem = tbItemMapper.selectByPrimaryKey(itemId);
+        try {
+            jedisClient.set(ITEM_INFO+":" + itemId + ":BASE", JsonUtils.objectToJson(itemId));
+            jedisClient.expire(ITEM_INFO + ":" + itemId + ":BASE",ITEM_EXPIRE );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tbItem;
     }
 
     @Override
@@ -75,5 +102,25 @@ public class ItemServiceImpl implements ItemService {
         jmsTemplate.send(destination, session -> session.createTextMessage(itemId + ""));
         //返回结果
         return TaotaoResult.ok();
+    }
+
+    @Override
+    public TbItemDesc getItemDescById(Long itemId){
+        try {
+            String json = jedisClient.get(ITEM_INFO + ":" + itemId + ":DESC");
+            if (StringUtils.isNotBlank(json)) {
+                return JsonUtils.jsonToPojo(json, TbItemDesc.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(itemId);
+        try {
+            jedisClient.set(ITEM_INFO+":" + itemId + ":DESC", JsonUtils.objectToJson(itemId));
+            jedisClient.expire(ITEM_INFO + ":" + itemId + ":DESC",ITEM_EXPIRE );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tbItemDesc;
     }
 }

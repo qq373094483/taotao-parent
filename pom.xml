@@ -5,9 +5,6 @@
     <groupId>com.taotao</groupId>
     <artifactId>taotao-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>taotao-item-web</module>
-    </modules>
     <packaging>pom</packaging>
     <properties>
         <junit.version>4.12</junit.version>
