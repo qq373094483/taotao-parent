@@ -21,17 +21,10 @@
     </bean>
     <!-- 配置包扫描器，扫描@Controller注解的类 -->
     <context:component-scan base-package="com.taotao.sso.controller"/>
-    <!-- 配置资源映射,否则会被拦截而无法加载静态资源,location的值最后一个"/"必须有，否则映射不过去。在这里不需要， 这个项目不拦截静态资源-->
-    <!--<mvc:resources location="/static/css/" mapping="/css/**"/>
-    <mvc:resources location="/static/js/" mapping="/js/**"/>-->
-    <!--freemarker的配置-->
-    <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
-        <property name="defaultEncoding" value="utf-8"/>
-    </bean>
+
     <!-- 引用dubbo服务 -->
     <dubbo:application name="taotao-sso-web"/>
     <!--<dubbo:registry protocol="zookeeper" address="zookeeper01:2181,zookeeper02:2181,zookeeper03:2181"/>-->
     <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
-    <dubbo:reference interface="com.taotao.service.ItemService" id="itemService" />
+    <dubbo:reference interface="com.taotao.sso.service.UserService" id="userService" />
 </beans>

@@ -37,7 +37,7 @@
     <!-- 拦截所有请求jsp除外 ,/不拦截jsp，但会拦截静态资源。/*会拦截所有-->
     <!--网页的伪静态化.访问controller时，应该是RequestMapping设定的值，再加上“url-pattern”的值来访问，例如RequestMapping的值是index,
     那如果要访问该动态资源，就是index.html才能访问-->
-    <url-pattern>*.html</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
 
 </web-app>

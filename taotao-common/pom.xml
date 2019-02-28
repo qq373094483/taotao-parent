@@ -55,6 +55,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope><!--provided表示开发，测试，编译，运行时用，打包时不打包，因为这个包在tomcat中是有的-->
+        </dependency>
     </dependencies>
 
 </project>
