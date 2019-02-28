@@ -3,7 +3,7 @@
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
-  <display-name>taotao-item-web</display-name>
+  <display-name>taotao-sso-web</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
@@ -22,18 +22,18 @@
   </filter-mapping>
   <!-- 前端控制器 -->
   <servlet>
-    <servlet-name>taotao-item-web</servlet-name>
+    <servlet-name>taotao-sso-web</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <!-- contextConfigLocation不是必须的， 如果不配置contextConfigLocation， springmvc的配置文件默认在：WEB-INF/servlet的name+"-servlet.xml" -->
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring/springmvc*.xml</param-value>
+      <param-value>classpath:spring/springmvc.xml</param-value>
     </init-param>
     <!-- 配置后表示tomcat启动后加载，否则第一次请求时加载-->
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>taotao-item-web</servlet-name>
+    <servlet-name>taotao-sso-web</servlet-name>
     <!-- 拦截所有请求jsp除外 ,/不拦截jsp，但会拦截静态资源。/*会拦截所有-->
     <!--网页的伪静态化.访问controller时，应该是RequestMapping设定的值，再加上“url-pattern”的值来访问，例如RequestMapping的值是index,
     那如果要访问该动态资源，就是index.html才能访问-->
