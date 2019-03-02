@@ -26,7 +26,7 @@
     <mvc:resources location="/static/js/" mapping="/js/**"/>-->
     <!-- 引用dubbo服务 -->
     <dubbo:application name="taotao-cart-web"/>
-    <!--<dubbo:registry protocol="zookeeper" address="zookeeper01:2181,zookeeper02:2181,zookeeper03:2181"/>-->
-    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+    <dubbo:registry protocol="zookeeper" address="zookeeper01:2181,zookeeper02:2181,zookeeper03:2181"/>
+    <!--<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>-->
     <dubbo:reference interface="com.taotao.service.ItemService" id="itemService" />
 </beans>

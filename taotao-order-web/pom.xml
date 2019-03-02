@@ -23,11 +23,11 @@
             <artifactId>taotao-order-interface</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>com.taotao</groupId>
-            <artifactId>taotao-manager-interface</artifactId>
+            <artifactId>taotao-sso-interface</artifactId>
             <version>${project.version}</version>
-        </dependency>-->
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
