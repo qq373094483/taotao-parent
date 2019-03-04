@@ -108,6 +108,13 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <!--必须定位资源文件，否则profiles无效-->
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <!-- 配置Tomcat插件 -->
             <plugin>

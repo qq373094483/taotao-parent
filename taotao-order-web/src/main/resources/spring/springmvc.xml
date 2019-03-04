@@ -34,7 +34,7 @@
     <!-- 多媒体解析器 -->
     <!-- 引用dubbo服务 -->
     <dubbo:application name="taotao-order-web"/>
-    <dubbo:registry protocol="zookeeper" address="zookeeper01:2181,zookeeper02:2181,zookeeper03:2181"/>
+    <dubbo:registry protocol="zookeeper" address="${zookeeper.ipAndPort}"/>
     <dubbo:reference interface="com.taotao.sso.service.UserService" id="userService" />
     <dubbo:reference interface="com.taotao.order.service.OrderService" id="orderService" />
 </beans>

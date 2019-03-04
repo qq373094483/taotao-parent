@@ -14,8 +14,7 @@
     <!-- 提供方应用信息，用于计算依赖关系 -->
     <dubbo:application name="taotao-search"/>
     <!-- 注册中心的地址 -->
-    <dubbo:registry protocol="zookeeper" address="zookeeper01:2181,zookeeper02:2181,zookeeper03:2181"/>
-    <!--<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />-->
+    <dubbo:registry protocol="zookeeper" address="${zookeeper.ipAndPort}"/>
     <!-- 用dubbo协议在20881端口暴露服务 -->
     <dubbo:protocol name="dubbo" port="20882"/>
     <!-- 声明需要暴露的服务接口 ,默认timeout为1000，并且会调用时重试3次，也就是3秒-->
