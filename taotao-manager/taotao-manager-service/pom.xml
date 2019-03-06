@@ -91,6 +91,16 @@
                 <!--必须定位资源文件，否则profiles无效-->
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>spring/applicationContext-redis-${env}.xml</include>
+                    <include>spring/applicationContext-activemq.xml</include>
+                    <include>spring/applicationContext-dao.xml</include>
+                    <include>spring/applicationContext-service.xml</include>
+                    <include>spring/applicationContext-trans.xml</include>
+                    <include>properties/*</include>
+                    <include>mybatis/*</include>
+                    <include>log4j.properties</include>
+                </includes>
             </resource>
         </resources>
         <plugins>

@@ -10,15 +10,9 @@
 
     <!--开启注解-->
     <!--测试时开启！<context:annotation-config/>开启注解,context:component-scan 是既开启注解，也扫描包-->
-    <context:annotation-config/>
-    <!--redis单机版-->
-    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
-        <constructor-arg name="host" value="${redis.ip}"></constructor-arg>
-        <constructor-arg name="port" value="${redis.port}"></constructor-arg>
-    </bean>
-    <bean id="jedisClientPool" class="com.taotao.jedis.JedisClientPool"/>
+    <!--<context:annotation-config/>-->
 
-    <!--<bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+    <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
         <constructor-arg>
             <set>
                 <bean class="redis.clients.jedis.HostAndPort">
@@ -48,5 +42,5 @@
             </set>
         </constructor-arg>
     </bean>
-    <bean id="jedisClientCluster" class="com.taotao.jedis.JedisClientCluster"/>-->
+    <bean id="jedisClientCluster" class="com.taotao.jedis.JedisClientCluster"/>
 </beans>
