@@ -287,6 +287,7 @@
                 <activeByDefault>true</activeByDefault><!-- 禁止修改 -->
             </activation>
             <properties>
+                <env>dev</env>
                 <jdbc.url><![CDATA[jdbc:mysql://127.0.0.1:3306/taotao?characterEncoding=utf-8]]></jdbc.url>
                 <jdbc.username>root</jdbc.username>
                 <jdbc.password>qq123456</jdbc.password>
@@ -301,6 +302,7 @@
             <!-- 禁止修改-注意：此配置是生产环境配置，开发及测试时禁止使用此配置(即不能配置到其他profile)，否则后果自负，切记 -->
             <id>product</id>
             <properties>
+                <env>product</env>
                 <jdbc.url><![CDATA[jdbc:mysql://127.0.0.1:3306/taotao?characterEncoding=utf-8]]></jdbc.url>
                 <jdbc.username>root</jdbc.username>
                 <jdbc.password>qq123456</jdbc.password>
