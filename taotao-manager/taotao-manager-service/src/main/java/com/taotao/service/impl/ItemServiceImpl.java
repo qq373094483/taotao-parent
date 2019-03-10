@@ -1,5 +1,6 @@
 package com.taotao.service.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.pojo.EasyUIDataGridResult;
@@ -9,17 +10,15 @@ import com.taotao.common.utils.JsonUtils;
 import com.taotao.jedis.JedisClient;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
-import com.taotao.pojo.TbItem;
-import com.taotao.pojo.TbItemDesc;
-import com.taotao.pojo.TbItemExample;
+import com.taotao.mapper.TbItemParamItemMapper;
+import com.taotao.pojo.*;
 import com.taotao.service.ItemService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 商品管理Service
@@ -30,6 +29,8 @@ public class ItemServiceImpl implements ItemService {
     private TbItemMapper tbItemMapper;
     @Autowired
     private TbItemDescMapper tbItemDescMapper;
+    @Autowired
+    private TbItemParamItemMapper tbItemParamItemMapper;
     @Autowired
     private JedisClient jedisClient;
 
@@ -118,5 +119,37 @@ public class ItemServiceImpl implements ItemService {
             e.printStackTrace();
         }
         return tbItemDesc;
+    }
+
+    @Override
+    public TaotaoResult updateItem(TbItem item, String desc) {
+        //商品状态，1-正常，2-下架，3-删除
+        item.setStatus((byte) 1);
+        item.setUpdated(new Date());
+        //向商品表更新数据
+        tbItemMapper.updateByPrimaryKey(item);
+        //创建一个商品描述表对应的pojo
+        TbItemDesc itemDesc = new TbItemDesc();
+        //补全pojo的属性
+        itemDesc.setItemId(item.getId());
+        itemDesc.setItemDesc(desc);
+        itemDesc.setUpdated(new Date());
+        //向商品描述表更新数据
+        tbItemDescMapper.updateByPrimaryKeyWithBLOBs(itemDesc);
+        jedisClient.expire(ITEM_INFO + ":" + item.getId() + ":DESC",-1);
+        //返回结果
+        return TaotaoResult.ok();
+    }
+
+    @Override
+    public TbItemParamItem getItemParamItemByItemId(Long itemId) {
+        TbItemParamItemExample tbItemParamItemExample = new TbItemParamItemExample();
+        TbItemParamItemExample.Criteria criteria = tbItemParamItemExample.createCriteria();
+        criteria.andItemIdEqualTo(itemId);
+        List<TbItemParamItem> tbItemParamItems = tbItemParamItemMapper.selectByExample(tbItemParamItemExample);
+        if (CollectionUtils.isNotEmpty(tbItemParamItems)) {
+            return tbItemParamItems.get(0);
+        }
+        return null;
     }
 }

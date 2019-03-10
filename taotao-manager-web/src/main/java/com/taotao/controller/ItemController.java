@@ -3,6 +3,8 @@ package com.taotao.controller;
 import com.taotao.common.pojo.EasyUIDataGridResult;
 import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.pojo.TbItem;
+import com.taotao.pojo.TbItemDesc;
+import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +78,30 @@ public class ItemController {
         for (Long itemId : ids) {
             jmsTemplate.send(itemDelTopicDestination, session -> session.createTextMessage(itemId + ""));
         }
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public TaotaoResult update(TbItem tbItem, String desc) {
+        if (tbItem.getId() == null) {
+            return TaotaoResult.fail("id不能为空");
+        }
+        TaotaoResult taotaoResult = itemService.updateItem(tbItem, desc);
+        //向Activemq发送商品添加消息
+//        mqAddItem(taotaoResult.getData());
+        return taotaoResult;
+    }
+
+    @RequestMapping(value = "query/item/desc/{itemId}")
+    @ResponseBody
+    public TaotaoResult queryItemDesc(@PathVariable  Long itemId) {
+        return TaotaoResult.ok(itemService.getItemDescById(itemId));
+    }
+
+
+    @RequestMapping(value = "param/item/query/{itemId}")
+    @ResponseBody
+    public TaotaoResult queryItemParamItem(@PathVariable  Long itemId) {
+        return TaotaoResult.ok(itemService.getItemParamItemByItemId(itemId));
     }
 }

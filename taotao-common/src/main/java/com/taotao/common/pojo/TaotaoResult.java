@@ -23,16 +23,24 @@ public class TaotaoResult<T> implements Serializable{
     // 响应中的数据
     private T data;
 
-    public static TaotaoResult build(Integer status, String msg, Object data) {
+    public static <T> TaotaoResult<T> build(Integer status, String msg, T data) {
         return new TaotaoResult(status, msg, data);
     }
 
-    public static TaotaoResult ok(Object data) {
+    public static <T> TaotaoResult ok(T data) {
         return new TaotaoResult(data);
     }
 
     public static TaotaoResult ok() {
         return new TaotaoResult(null);
+    }
+
+    public static TaotaoResult fail(String msg) {
+        return build(500, msg);
+    }
+
+    public static<T> TaotaoResult<T> fail(String msg,T data) {
+        return build(500, msg,data);
     }
 
     public TaotaoResult() {

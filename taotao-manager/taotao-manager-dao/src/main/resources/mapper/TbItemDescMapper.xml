@@ -227,7 +227,7 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.taotao.pojo.TbItemDesc" >
     update tb_item_desc
-    set created = #{created,jdbcType=TIMESTAMP},
+    set
       updated = #{updated,jdbcType=TIMESTAMP},
       item_desc = #{itemDesc,jdbcType=LONGVARCHAR}
     where item_id = #{itemId,jdbcType=BIGINT}
