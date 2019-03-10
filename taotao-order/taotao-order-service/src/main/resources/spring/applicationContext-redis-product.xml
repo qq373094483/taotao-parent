@@ -12,35 +12,11 @@
     <!--测试时开启！<context:annotation-config/>开启注解,context:component-scan 是既开启注解，也扫描包-->
     <!--<context:annotation-config/>-->
 
-    <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
-        <constructor-arg>
-            <set>
-                <bean class="redis.clients.jedis.HostAndPort">
-                    <constructor-arg name="host" value="192.168.25.153"/>
-                    <constructor-arg name="port" value="7001"/>
-                </bean>
-                <bean class="redis.clients.jedis.HostAndPort">
-                    <constructor-arg name="host" value="192.168.25.153"/>
-                    <constructor-arg name="port" value="7002"/>
-                </bean>
-                <bean class="redis.clients.jedis.HostAndPort">
-                    <constructor-arg name="host" value="192.168.25.153"/>
-                    <constructor-arg name="port" value="7003"/>
-                </bean>
-                <bean class="redis.clients.jedis.HostAndPort">
-                    <constructor-arg name="host" value="192.168.25.153"/>
-                    <constructor-arg name="port" value="7004"/>
-                </bean>
-                <bean class="redis.clients.jedis.HostAndPort">
-                    <constructor-arg name="host" value="192.168.25.153"/>
-                    <constructor-arg name="port" value="7005"/>
-                </bean>
-                <bean class="redis.clients.jedis.HostAndPort">
-                    <constructor-arg name="host" value="192.168.25.153"/>
-                    <constructor-arg name="port" value="7006"/>
-                </bean>
-            </set>
-        </constructor-arg>
+    <bean id="hostAndPorts"  class="com.taotao.jedis.HostAndPortSet">
+        <property name="hostAndPorts" value="${redis.cluster}"/>
+    </bean>
+     <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+        <constructor-arg ref="hostAndPorts"/>
     </bean>
     <bean id="jedisClientCluster" class="com.taotao.jedis.JedisClientCluster"/>
 </beans>

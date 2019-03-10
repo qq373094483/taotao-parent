@@ -79,6 +79,8 @@ public class CartController {
     public String showCartList(HttpServletRequest request) {
         //从cookie中取购物车列表
         List<TbItem> cartItemList = getCartItemList(request);
+        request.setAttribute("shopCount", cartItemList.stream().map(tbItem -> tbItem.getNum()).reduce(0, (num1,num2) -> num1 += num2));
+
         //把购物车列表传递给jsp
         request.setAttribute("cartList", cartItemList);
         //返回逻辑视图

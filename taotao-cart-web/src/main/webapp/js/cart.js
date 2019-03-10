@@ -39,6 +39,12 @@ var TTCart = {
 			 thousandsSeparator: ',',
 			 centsLimit: 2
 		});
+        //计算总商品数量
+        var shopCount=0;
+        $('.quantity-text').each(function (index, item) {
+            shopCount+=parseInt($(item).val())
+        });
+        $('#selectedCount').text(shopCount)
 	}
 };
 
