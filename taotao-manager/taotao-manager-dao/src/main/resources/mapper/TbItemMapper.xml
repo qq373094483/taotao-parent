@@ -99,6 +99,13 @@
     delete from tb_item
     where id = #{id,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.util.List" >
+    delete from tb_item
+    where id in
+    <foreach collection="ids" separator="," open="(" close=")" item="id">
+      #{id}
+    </foreach>
+  </delete>
   <delete id="deleteByExample" parameterType="com.taotao.pojo.TbItemExample" >
     delete from tb_item
     <if test="_parameter != null" >

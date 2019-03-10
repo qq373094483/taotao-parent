@@ -16,13 +16,8 @@ import com.taotao.service.ItemService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import javax.jms.*;
-import java.awt.font.TextMeasurer;
 import java.util.Date;
 import java.util.List;
 
@@ -35,11 +30,6 @@ public class ItemServiceImpl implements ItemService {
     private TbItemMapper tbItemMapper;
     @Autowired
     private TbItemDescMapper tbItemDescMapper;
-    @Autowired
-    private JmsTemplate jmsTemplate;
-    @Resource(name = "itemAddtopic")
-    private Destination destination;
-
     @Autowired
     private JedisClient jedisClient;
 
@@ -60,8 +50,8 @@ public class ItemServiceImpl implements ItemService {
         }
         TbItem tbItem = tbItemMapper.selectByPrimaryKey(itemId);
         try {
-            jedisClient.set(ITEM_INFO+":" + itemId + ":BASE", JsonUtils.objectToJson(tbItem));
-            jedisClient.expire(ITEM_INFO + ":" + itemId + ":BASE",ITEM_EXPIRE );
+            jedisClient.set(ITEM_INFO + ":" + itemId + ":BASE", JsonUtils.objectToJson(tbItem));
+            jedisClient.expire(ITEM_INFO + ":" + itemId + ":BASE", ITEM_EXPIRE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,7 +68,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public TaotaoResult addItem(TbItem item, String desc) {
+    public TaotaoResult<Long> addItem(TbItem item, String desc) {
         //生成商品id
         final long itemId = IDUtils.genItemId();
         //补全item的属性
@@ -98,14 +88,20 @@ public class ItemServiceImpl implements ItemService {
         itemDesc.setCreated(new Date());
         //向商品描述表插入数据
         tbItemDescMapper.insert(itemDesc);
-        //向Activemq发送商品添加消息
-        jmsTemplate.send(destination, session -> session.createTextMessage(itemId + ""));
         //返回结果
-        return TaotaoResult.ok();
+        return TaotaoResult.ok(itemId);
     }
 
     @Override
-    public TbItemDesc getItemDescById(Long itemId){
+    public TaotaoResult delItem(List<Long> ids) {
+        int delNum = tbItemMapper.deleteByPrimaryKeys(ids);
+        tbItemDescMapper.deleteByItemIds(ids);
+        //返回结果
+        return TaotaoResult.ok(delNum);
+    }
+
+    @Override
+    public TbItemDesc getItemDescById(Long itemId) {
         try {
             String json = jedisClient.get(ITEM_INFO + ":" + itemId + ":DESC");
             if (StringUtils.isNotBlank(json)) {
@@ -116,8 +112,8 @@ public class ItemServiceImpl implements ItemService {
         }
         TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(itemId);
         try {
-            jedisClient.set(ITEM_INFO+":" + itemId + ":DESC", JsonUtils.objectToJson(tbItemDesc));
-            jedisClient.expire(ITEM_INFO + ":" + itemId + ":DESC",ITEM_EXPIRE );
+            jedisClient.set(ITEM_INFO + ":" + itemId + ":DESC", JsonUtils.objectToJson(tbItemDesc));
+            jedisClient.expire(ITEM_INFO + ":" + itemId + ":DESC", ITEM_EXPIRE);
         } catch (Exception e) {
             e.printStackTrace();
         }

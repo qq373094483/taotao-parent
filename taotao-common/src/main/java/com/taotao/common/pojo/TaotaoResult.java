@@ -1,15 +1,15 @@
 package com.taotao.common.pojo;
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 淘淘商城自定义响应结构
  */
-public class TaotaoResult implements Serializable{
+public class TaotaoResult<T> implements Serializable{
 
     // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -21,7 +21,7 @@ public class TaotaoResult implements Serializable{
     private String msg;
 
     // 响应中的数据
-    private Object data;
+    private T data;
 
     public static TaotaoResult build(Integer status, String msg, Object data) {
         return new TaotaoResult(status, msg, data);
@@ -43,13 +43,13 @@ public class TaotaoResult implements Serializable{
         return new TaotaoResult(status, msg, null);
     }
 
-    public TaotaoResult(Integer status, String msg, Object data) {
+    public TaotaoResult(Integer status, String msg, T data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public TaotaoResult(Object data) {
+    public TaotaoResult(T data) {
         this.status = 200;
         this.msg = "OK";
         this.data = data;
@@ -75,11 +75,11 @@ public class TaotaoResult implements Serializable{
         this.msg = msg;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

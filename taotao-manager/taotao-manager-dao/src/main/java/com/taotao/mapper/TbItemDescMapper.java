@@ -13,6 +13,8 @@ public interface TbItemDescMapper {
 
     int deleteByPrimaryKey(Long itemId);
 
+    int deleteByItemIds(@Param("itemIds") List<Long> itemIds);
+
     int insert(TbItemDesc record);
 
     int insertSelective(TbItemDesc record);

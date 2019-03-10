@@ -20,17 +20,30 @@
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="connectionFactory"/>
     </bean>
-    <!-- 配置消息的Destination对象 -->
+    <!-- 配置添加商品的消息Destination对象 -->
     <bean id="itemAddTopic" class="org.apache.activemq.command.ActiveMQTopic">
         <constructor-arg name="name" value="item-add-topic"/>
     </bean>
 
-    <!-- 配置消息的接收者 -->
+    <!-- 配置删除商品的消息Destination对象 -->
+    <bean id="itemDelTopic" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg name="name" value="item-del-topic"/>
+    </bean>
+
+    <!-- 配置添加商品的消息的接收者 -->
     <bean id="itemAddMessageListener" class="com.taotao.item.listener.ItemAddMessageListener"/>
     <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory" />
         <property name="destination" ref="itemAddTopic" />
         <property name="messageListener" ref="itemAddMessageListener" />
+    </bean>
+
+    <!-- 配置删除商品的消息的接收者 -->
+    <bean id="itemDelMessageListener" class="com.taotao.item.listener.ItemDelMessageListener"/>
+    <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="destination" ref="itemDelTopic" />
+        <property name="messageListener" ref="itemDelMessageListener" />
     </bean>
 
 </beans>

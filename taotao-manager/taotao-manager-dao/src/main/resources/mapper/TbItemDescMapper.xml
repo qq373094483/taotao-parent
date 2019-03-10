@@ -121,6 +121,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  <delete id="deleteByItemIds" parameterType="java.util.List" >
+    delete from tb_item_desc
+    where item_id in
+    <foreach collection="itemIds" separator="," open="(" close=")" item="itemId">
+      #{itemId}
+    </foreach>
+  </delete>
   <insert id="insert" parameterType="com.taotao.pojo.TbItemDesc" >
     insert into tb_item_desc (item_id, created, updated, 
       item_desc)

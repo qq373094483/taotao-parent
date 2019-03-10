@@ -309,7 +309,7 @@
                 <zookeeper.ipAndPort>zookeeper01:2181,zookeeper02:2181,zookeeper03:2181</zookeeper.ipAndPort>
                 <redis.type>redisCluster</redis.type>
                 <redis.cluster>192.168.135.213:6379,192.168.135.214:6379,192.168.135.215:6379,192.168.135.223:6379,192.168.135.224:6379,192.168.135.225:6379</redis.cluster>
-                <activemq.ipAndPort>tcp://127.0.0.1:61616</activemq.ipAndPort>
+                <activemq.ipAndPort>tcp://zookeeper01:61616</activemq.ipAndPort>
             </properties>
         </profile>
     </profiles>
