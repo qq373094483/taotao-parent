@@ -104,4 +104,16 @@ public class ItemController {
     public TaotaoResult queryItemParamItem(@PathVariable  Long itemId) {
         return TaotaoResult.ok(itemService.getItemParamItemByItemId(itemId));
     }
+
+    @RequestMapping(value = "/instock", method = RequestMethod.POST)
+    @ResponseBody
+    public TaotaoResult instock(String ids) {
+        return TaotaoResult.ok(itemService.updateInstock(Arrays.stream(StringUtils.split(ids, ",")).map(id -> Long.valueOf(id)).collect(Collectors.toList())));
+    }
+
+    @RequestMapping(value = "/reshelf", method = RequestMethod.POST)
+    @ResponseBody
+    public TaotaoResult reshelf(String ids) {
+        return TaotaoResult.ok(itemService.updateReshelf(Arrays.stream(StringUtils.split(ids, ",")).map(id -> Long.valueOf(id)).collect(Collectors.toList())));
+    }
 }

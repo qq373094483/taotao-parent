@@ -136,7 +136,7 @@ public class ItemServiceImpl implements ItemService {
         itemDesc.setUpdated(new Date());
         //向商品描述表更新数据
         tbItemDescMapper.updateByPrimaryKeyWithBLOBs(itemDesc);
-        jedisClient.expire(ITEM_INFO + ":" + item.getId() + ":DESC",-1);
+        jedisClient.expire(ITEM_INFO + ":" + item.getId() + ":DESC", -1);
         //返回结果
         return TaotaoResult.ok();
     }
@@ -151,5 +151,47 @@ public class ItemServiceImpl implements ItemService {
             return tbItemParamItems.get(0);
         }
         return null;
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(TbItem tbItem) {
+        tbItem.setUpdated(new Date());
+        return tbItemMapper.updateByPrimaryKeySelective(tbItem);
+    }
+
+    /**
+     * 下架
+     * @param ids
+     * @return
+     */
+    @Override
+    public int updateInstock(List<Long> ids) {
+        TbItem tbItem = new TbItem();
+        int updateNum=0;
+        for (Long id : ids) {
+            tbItem.setId(id);
+            //商品状态，1-正常，2-下架，3-删除
+            tbItem.setStatus((byte)2);
+            updateNum+=updateByPrimaryKeySelective(tbItem);
+        }
+        return updateNum;
+    }
+
+    /**
+     * 上架
+     * @param ids
+     * @return
+     */
+    @Override
+    public int updateReshelf(List<Long> ids) {
+        TbItem tbItem = new TbItem();
+        int updateNum=0;
+        for (Long id : ids) {
+            tbItem.setId(id);
+            //商品状态，1-正常，2-下架，3-删除
+            tbItem.setStatus((byte)1);
+            updateNum+=updateByPrimaryKeySelective(tbItem);
+        }
+        return updateNum;
     }
 }

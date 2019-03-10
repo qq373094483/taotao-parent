@@ -20,4 +20,10 @@ public interface ItemService {
     TaotaoResult updateItem(TbItem item, String desc);
 
     TbItemParamItem getItemParamItemByItemId(Long itemId);
+
+    int updateByPrimaryKeySelective(TbItem tbItem);
+
+    int updateInstock(List<Long> ids);
+
+    int updateReshelf(List<Long> ids);
 }
