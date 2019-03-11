@@ -1,28 +1,21 @@
 package com.taotao.service.impl;
 
-import com.alibaba.druid.support.json.JSONUtils;
-import com.alibaba.dubbo.common.json.JSONObject;
-import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.bo.ItemParamBO;
 import com.taotao.common.pojo.EasyUIDataGridResult;
 import com.taotao.common.pojo.TaotaoResult;
-import com.taotao.common.utils.IDUtils;
 import com.taotao.mapper.TbItemCatMapper;
-import com.taotao.mapper.TbItemParamItemMapper;
 import com.taotao.mapper.TbItemParamMapper;
-import com.taotao.pojo.*;
-import com.taotao.service.ItemParamItemService;
+import com.taotao.pojo.TbItemCat;
+import com.taotao.pojo.TbItemParam;
+import com.taotao.pojo.TbItemParamExample;
 import com.taotao.service.ItemParamService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -96,6 +89,12 @@ public class ItemParamServiceImpl implements ItemParamService {
         tbItemParam.setCreated(new Date());
         tbItemParam.setUpdated(tbItemParam.getCreated());
         tbItemParamMapper.insert(tbItemParam);
+        return TaotaoResult.ok();
+    }
+    @Override
+    public TaotaoResult updateItemParam(TbItemParam tbItemParam) {
+        tbItemParam.setUpdated(new Date());
+        tbItemParamMapper.updateByPrimaryKeyWithBLOBs(tbItemParam);
         return TaotaoResult.ok();
     }
 

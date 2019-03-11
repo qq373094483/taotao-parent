@@ -3,6 +3,8 @@ package com.taotao.controller;
 import com.taotao.bo.ItemParamBO;
 import com.taotao.common.pojo.EasyUIDataGridResult;
 import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.pojo.TbItem;
+import com.taotao.pojo.TbItemParam;
 import com.taotao.service.ItemParamService;
 import com.taotao.service.ItemService;
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +37,13 @@ public class ItemParamController {
     public TaotaoResult save(String paramData,@PathVariable Long itemCatId) {
         return itemParamService.addItemParam(paramData, itemCatId);
     }
+
+    @RequestMapping(value = "update/{itemCatId}",method = RequestMethod.POST)
+    @ResponseBody
+    public TaotaoResult update(TbItemParam tbItemParam,@PathVariable Long itemCatId) {
+        tbItemParam.setItemCatId(itemCatId);
+        return itemParamService.updateItemParam(tbItemParam);
+    }
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult delete(String ids) {
@@ -47,5 +56,10 @@ public class ItemParamController {
         return TaotaoResult.ok(itemParamService.selectByItemCatId(itemCatId));
     }
 
+    @RequestMapping("query/{itemParamId}")
+    @ResponseBody
+    public TaotaoResult getItemById(@PathVariable Long itemParamId){
+        return TaotaoResult.ok(itemParamService.selectByPrimaryKey(itemParamId));
+    }
 
 }
