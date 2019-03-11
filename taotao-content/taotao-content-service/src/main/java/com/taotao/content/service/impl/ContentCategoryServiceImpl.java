@@ -8,6 +8,7 @@ import com.taotao.pojo.TbContentCategory;
 import com.taotao.pojo.TbContentCategoryExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -54,5 +55,30 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
             tbContentCategoryMapper.updateByPrimaryKey(parent);
         }
         return TaotaoResult.ok(contentCategory);
+    }
+
+    @Override
+    public TaotaoResult updateContentCategorySelective(TbContentCategory tbContentCategory) {
+        return TaotaoResult.ok(tbContentCategoryMapper.updateByPrimaryKeySelective(tbContentCategory));
+    }
+
+    @Override
+    public TaotaoResult delContentCategory(Long id) {
+        TbContentCategory contentCategory = tbContentCategoryMapper.selectByPrimaryKey(id);
+        if (contentCategory != null) {
+            tbContentCategoryMapper.deleteByPrimaryKey(id);
+            //如果节点被删除后，其父节点下无子节点，则为叶子节点，把isParent设置为false
+            TbContentCategoryExample tbContentCategoryExample = new TbContentCategoryExample();
+            TbContentCategoryExample.Criteria criteria = tbContentCategoryExample.createCriteria();
+            criteria.andParentIdEqualTo(contentCategory.getParentId());
+            List<TbContentCategory> tbContentCategories = tbContentCategoryMapper.selectByExample(tbContentCategoryExample);
+            if (CollectionUtils.isEmpty(tbContentCategories)) {
+                TbContentCategory contentCategoryParent = tbContentCategoryMapper.selectByPrimaryKey(contentCategory.getParentId());
+                contentCategoryParent.setIsParent(false);
+                tbContentCategoryMapper.updateByPrimaryKeySelective(contentCategoryParent);
+            }
+            return TaotaoResult.ok();
+        }
+        return TaotaoResult.build(500,"未找到该数据");
     }
 }
