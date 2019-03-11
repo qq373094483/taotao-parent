@@ -4,7 +4,6 @@ import com.taotao.common.pojo.EasyUIDataGridResult;
 import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
-import com.taotao.pojo.TbItemParamItem;
 
 import java.util.List;
 
@@ -18,8 +17,6 @@ public interface ItemService {
     TbItemDesc getItemDescById(Long itemId);
 
     TaotaoResult updateItem(TbItem item, String desc);
-
-    TbItemParamItem getItemParamItemByItemId(Long itemId);
 
     int updateByPrimaryKeySelective(TbItem tbItem);
 

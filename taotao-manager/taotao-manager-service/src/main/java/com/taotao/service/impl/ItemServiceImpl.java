@@ -1,6 +1,5 @@
 package com.taotao.service.impl;
 
-import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.pojo.EasyUIDataGridResult;
@@ -11,14 +10,17 @@ import com.taotao.jedis.JedisClient;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.mapper.TbItemParamItemMapper;
-import com.taotao.pojo.*;
+import com.taotao.pojo.TbItem;
+import com.taotao.pojo.TbItemDesc;
+import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 商品管理Service
@@ -139,18 +141,6 @@ public class ItemServiceImpl implements ItemService {
         jedisClient.expire(ITEM_INFO + ":" + item.getId() + ":DESC", -1);
         //返回结果
         return TaotaoResult.ok();
-    }
-
-    @Override
-    public TbItemParamItem getItemParamItemByItemId(Long itemId) {
-        TbItemParamItemExample tbItemParamItemExample = new TbItemParamItemExample();
-        TbItemParamItemExample.Criteria criteria = tbItemParamItemExample.createCriteria();
-        criteria.andItemIdEqualTo(itemId);
-        List<TbItemParamItem> tbItemParamItems = tbItemParamItemMapper.selectByExample(tbItemParamItemExample);
-        if (CollectionUtils.isNotEmpty(tbItemParamItems)) {
-            return tbItemParamItems.get(0);
-        }
-        return null;
     }
 
     @Override

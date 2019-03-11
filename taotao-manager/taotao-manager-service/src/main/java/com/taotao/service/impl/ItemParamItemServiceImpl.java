@@ -1,8 +1,6 @@
 package com.taotao.service.impl;
 
 import com.taotao.mapper.TbItemParamItemMapper;
-import com.taotao.pojo.TbItemCat;
-import com.taotao.pojo.TbItemParamExample;
 import com.taotao.pojo.TbItemParamItem;
 import com.taotao.pojo.TbItemParamItemExample;
 import com.taotao.service.ItemParamItemService;
