@@ -20,7 +20,7 @@ public class ItemParamItemServiceImpl implements ItemParamItemService {
 
     @Override
     public List<TbItemParamItem> selectByExample(TbItemParamItemExample example) {
-        return tbItemParamItemMapper.selectByExample(example);
+        return tbItemParamItemMapper.selectByExampleWithBLOBs(example);
     }
 
     @Override

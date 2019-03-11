@@ -17,7 +17,8 @@
         </tr>
     </thead>
 </table>
-<div id="itemEditWindow" class="easyui-window" title="编辑商品" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/item-edit'" style="width:80%;height:80%;padding:10px;">
+<div id="itemAddWindow" class="easyui-window" title="新增商品" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/item-add'" style="width:80%;height:80%;padding:10px;">
+<div id="itemEditWindow" class="easyui-window" title="编辑商品" data-options="modal:true,closed:true,iconCls:'icon-edit',href:'/item-edit'" style="width:80%;height:80%;padding:10px;">
 </div>
 <script>
 
@@ -36,7 +37,12 @@
         text:'新增',
         iconCls:'icon-add',
         handler:function(){
-        	$(".tree-title:contains('新增商品')").parent().click();
+        	// $(".tree-title:contains('新增商品')").parent().click();
+            $("#itemEditWindow").window({
+                onLoad :function(){
+
+                }
+            }).window("open");
         }
     },{
         text:'编辑',
