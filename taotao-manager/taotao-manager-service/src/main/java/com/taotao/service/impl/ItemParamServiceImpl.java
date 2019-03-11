@@ -1,11 +1,15 @@
 package com.taotao.service.impl;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.dubbo.common.json.JSONObject;
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.bo.ItemParamBO;
 import com.taotao.common.pojo.EasyUIDataGridResult;
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.IDUtils;
 import com.taotao.mapper.TbItemCatMapper;
 import com.taotao.mapper.TbItemParamItemMapper;
 import com.taotao.mapper.TbItemParamMapper;
@@ -15,9 +19,11 @@ import com.taotao.service.ItemParamService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,5 +86,25 @@ public class ItemParamServiceImpl implements ItemParamService {
         tbItemParams.clear();
         pageComponent.addAll(itemParamBOs);
         return EasyUIDataGridResult.build(new PageInfo<>(pageComponent).getTotal(), pageComponent);
+    }
+
+    @Override
+    public TaotaoResult addItemParam(String paramData, Long itemCatId) {
+        TbItemParam tbItemParam = new TbItemParam();
+        tbItemParam.setItemCatId(itemCatId);
+        tbItemParam.setParamData(paramData);
+        tbItemParam.setCreated(new Date());
+        tbItemParam.setUpdated(tbItemParam.getCreated());
+        tbItemParamMapper.insert(tbItemParam);
+        return TaotaoResult.ok();
+    }
+
+    @Override
+    public TaotaoResult delItemParam(List<Long> ids) {
+        int delNum = 0;
+        for (Long id : ids) {
+            delNum+=tbItemParamMapper.deleteByPrimaryKey(id);
+        }
+        return TaotaoResult.ok(delNum);
     }
 }
