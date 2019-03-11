@@ -38,6 +38,8 @@
     <dubbo:registry protocol="zookeeper" address="${zookeeper.ipAndPort}"/>
     <dubbo:reference interface="com.taotao.service.ItemService" id="itemService" />
     <dubbo:reference interface="com.taotao.service.ItemCatService" id="itemCatService" />
+    <dubbo:reference interface="com.taotao.service.ItemParamService" id="itemParamService" />
+    <dubbo:reference interface="com.taotao.service.ItemParamItemService" id="itemParamItemService" />
     <dubbo:reference interface="com.taotao.content.service.ContentCategoryService" id="contentCategoryService" />
     <dubbo:reference interface="com.taotao.content.service.ContentService" id="contentService" />
     <dubbo:reference interface="com.taotao.search.service.SearchItemService" id="searchItemService" />

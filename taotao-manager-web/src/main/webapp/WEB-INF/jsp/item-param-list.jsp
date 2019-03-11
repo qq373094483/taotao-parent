@@ -18,6 +18,9 @@
 <script>
 
 	function formatItemParamData(value , index){
+        if(value==null) {
+            return "";
+        }
 		var json = JSON.parse(value);
 		var array = [];
 		$.each(json,function(i,e){

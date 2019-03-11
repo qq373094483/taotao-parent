@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@RequestMapping("item/cat")
 public class ItemCatController {
 
     @Autowired
     private ItemCatService itemCatService;
-    @RequestMapping("/item/cat/list")
+    @RequestMapping("list")
     @ResponseBody
     public List<EasyUITreeNode> getItemCatList(@RequestParam(name="id",defaultValue = "0") Long parentId) {
         return itemCatService.getItemCatList(parentId);

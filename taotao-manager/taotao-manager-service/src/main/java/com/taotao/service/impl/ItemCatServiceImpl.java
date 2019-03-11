@@ -31,4 +31,9 @@ public class ItemCatServiceImpl implements ItemCatService {
             return easyUITreeNode;
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public TbItemCat selectByPrimaryKey(Long id) {
+        return tbItemCatMapper.selectByPrimaryKey(id);
+    }
 }

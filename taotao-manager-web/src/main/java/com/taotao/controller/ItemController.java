@@ -98,13 +98,6 @@ public class ItemController {
         return TaotaoResult.ok(itemService.getItemDescById(itemId));
     }
 
-
-    @RequestMapping(value = "param/item/query/{itemId}")
-    @ResponseBody
-    public TaotaoResult queryItemParamItem(@PathVariable  Long itemId) {
-        return TaotaoResult.ok(itemService.getItemParamItemByItemId(itemId));
-    }
-
     @RequestMapping(value = "/instock", method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult instock(String ids) {
