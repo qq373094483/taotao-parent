@@ -69,7 +69,6 @@
                     // 加载商品描述
                     $.getJSON('/item/param/query/' + data.id, function (_data) {
                         if (_data.status == 200) {
-                            console.log(data);
                             $('input[name="id"]').val(data.id);
                             $('input[name="cid"]').val(data.itemCatId);
                             $('input[name="cid"]').prev().text(data.itemCatName).attr("cid", data.itemCatId);
