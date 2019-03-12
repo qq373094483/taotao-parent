@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface ItemParamService {
     TbItemParam selectByPrimaryKey(Long id);
-    List<TbItemParam> selectByExample(TbItemParamExample example);
-    List<TbItemParam> selectByItemCatId(Long itemCatId);
+    List<TbItemParam> selectByExampleWithBLOBs(TbItemParamExample example);
+    TbItemParam selectByItemCatId(Long itemCatId);
     EasyUIDataGridResult<TbItemParam> getItemParamList(Integer page, Integer rows);
 
     List<TbItemParam> getTbItemParamsForPage(Integer page, Integer rows);

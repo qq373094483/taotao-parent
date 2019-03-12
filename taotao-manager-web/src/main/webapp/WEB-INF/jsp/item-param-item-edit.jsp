@@ -3,8 +3,9 @@
 <table cellpadding="5" style="margin-left: 30px" id="itemParamItemEditTable" class="itemParam">
 	<tr>
 		<td>商品:</td>
-		<td><a href="javascript:void(0)" class="easyui-linkbutton selectItem">选择商品</a>
-			<input type="hidden" name="itemId" style="width: 280px;"></input>
+		<td><a href="javascript:void(0)" class="easyui-linkbutton selectItem" disabled="disabled">选择商品</a>
+			<input type="hidden" name="itemId"/>
+			<input type="hidden" name="itemTitle"/>
 		</td>
 	</tr>
 	<tr class="hide addItemGroupTr">
@@ -38,21 +39,7 @@
 </div>
 <script style="text/javascript">
 	$(function(){
-		TAOTAO.initItemCat({
-			fun:function(node){
-			$(".addItemGroupTr").hide().find(".param").remove();
-				//  判断选择的目录是否已经添加过规格
-			  $.getJSON("/item/param/query/itemcatid/" + node.id,function(data){
-				  if(data.status == 200 && (data.data&&data.data.length>0)){
-					  $.messager.alert("提示", "该类目已经添加，请选择其他类目。", undefined, function(){
-						 $("#itemParamItemEditTable .selectItemCat").click();
-					  });
-					  return ;
-				  }
-				  $(".addItemGroupTr").show();
-			  });
-			}
-		});
+		$(".addItemGroupTr").show();
 		$(".addGroup").click(function(){
 			  var temple = $(".itemParamEditTemplate li").eq(0).clone();
 			  $(this).parent().parent().append(temple);
@@ -111,6 +98,6 @@
 			});
 		});
 		//编辑状态下，解除click事件
-		$("#itemParamItemEditTable .selectItemCat").unbind('click')
+		$("#itemParamItemEditTable .selectItem").unbind('click')
 	});
 </script>

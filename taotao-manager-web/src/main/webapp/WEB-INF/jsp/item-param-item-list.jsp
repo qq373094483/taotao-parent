@@ -32,7 +32,6 @@
     }
 
     function getSelectionsIds() {
-        console.log("a")
         var itemList = $("#itemParamItemList");
         var sels = itemList.datagrid("getSelections");
         var ids = [];
@@ -57,6 +56,7 @@
         iconCls: 'icon-edit',
         handler: function () {
             var ids = getSelectionsIds();
+            console.log(ids);
             if (ids.length == 0) {
                 $.messager.alert('提示', '必须选择一种规格才能编辑!');
                 return;

@@ -53,4 +53,10 @@ public class ItemParamItemController {
         List<Long> itemParamIds = Arrays.stream(StringUtils.split(ids, ",")).map(id -> Long.valueOf(id)).collect(Collectors.toList());
         return TaotaoResult.ok(itemParamItemService.delItemParam(itemParamIds));
     }
+
+    @RequestMapping(value = "query/itemId/{itemId}")
+    @ResponseBody
+    public TaotaoResult getByItemCatId(@PathVariable Long itemId) {
+        return TaotaoResult.ok(itemParamItemService.selectByItemId(itemId));
+    }
 }

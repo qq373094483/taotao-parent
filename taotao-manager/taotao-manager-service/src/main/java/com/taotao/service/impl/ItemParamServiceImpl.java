@@ -1,5 +1,6 @@
 package com.taotao.service.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,16 +33,20 @@ public class ItemParamServiceImpl implements ItemParamService {
     }
 
     @Override
-    public List<TbItemParam> selectByExample(TbItemParamExample example) {
-        return tbItemParamMapper.selectByExample(example);
+    public List<TbItemParam> selectByExampleWithBLOBs(TbItemParamExample example) {
+        return tbItemParamMapper.selectByExampleWithBLOBs(example);
     }
 
     @Override
-    public List<TbItemParam> selectByItemCatId(Long itemCatId) {
+    public TbItemParam selectByItemCatId(Long itemCatId) {
         TbItemParamExample tbItemParamExample = new TbItemParamExample();
         TbItemParamExample.Criteria criteria = tbItemParamExample.createCriteria();
         criteria.andItemCatIdEqualTo(itemCatId);
-        return selectByExample(tbItemParamExample);
+        List<TbItemParam> tbItemParams = selectByExampleWithBLOBs(tbItemParamExample);
+        if (CollectionUtils.isNotEmpty(tbItemParams)) {
+            return tbItemParams.get(0);
+        }
+        return null;
     }
 
     @Override

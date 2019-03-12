@@ -20,11 +20,35 @@
 <script>
     $("#itemChoiceList").datagrid({
         onDblClickRow:function(rowIndex, rowData) {
-            $('#itemParamItemAddTable input[name="itemId"]').val(rowData.id);
-            $('#itemParamItemAddTable input[name="itemTitle"]').val(rowData.title);
-            $('#itemParamItemAddTable input[name="itemTitle"]').prevAll('span').text(rowData.title).attr("itemId",rowData.id);
-            $("#itemChoiceWindow").window("close");
-            $(".addItemGroupTr").show();
+            $('.addItemGroupTr li.param').remove();
+            //  判断选择的商品是否已经添加过规格
+            $.getJSON("/item/param/query/itemcatid/" + rowData.cid,function(data){
+                if(!data.data){
+                    $.messager.alert("提示", "该类目未添加规格", "warning", function(){
+                        // $("#itemParamAddTable .selectItemCat").click();
+                    });
+                    return ;
+                }
+                var paramData = JSON.parse(data.data.paramData);
+                $('#itemParamItemAddTable input[name="itemId"]').val(rowData.id);
+                $('#itemParamItemAddTable input[name="itemTitle"]').val(rowData.title);
+                $('#itemParamItemAddTable input[name="itemTitle"]').prevAll('span').text(rowData.title).attr("itemId",rowData.id);
+                $("#itemChoiceWindow").window("close");
+                $(".addItemGroupTr").show();
+                $(".addGroup").hide();
+                $.each(paramData, function (index, item) {
+                    $(".addGroup").click();
+                });
+                //规格组件
+                var paramComponent = $('.addItemGroupTr li.param input[name="group"]').parent('span').find('input');
+                console.log(paramData);
+                $.each(paramComponent, function (index, item) {
+                    var num = index + 1;
+                    var paramDataIndex = num % 2 == 1 ? (num + 1) / 2 : num / 2;
+                    var currentParamDataItem=paramData[paramDataIndex-1];
+                    $(item).val(currentParamDataItem.group);
+                });
+            });
         }
     });
 </script>

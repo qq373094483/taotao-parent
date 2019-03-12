@@ -171,6 +171,10 @@ var TT = TAOTAO = {
             _ele.unbind('click').click(function(){
                 $("#itemChoiceWindow").window({
                     onLoad :function(){
+                    },
+                    onOpen: function () {
+                    },
+                    onClose : function(){
 
                     }
                 }).window("open");
