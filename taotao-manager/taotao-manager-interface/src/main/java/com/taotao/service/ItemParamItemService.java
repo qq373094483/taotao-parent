@@ -9,5 +9,5 @@ public interface ItemParamItemService {
     TbItemParamItem selectByPrimaryKey(Long itemCatId);
     List<TbItemParamItem> selectByExample(TbItemParamItemExample example);
 
-    public List<TbItemParamItem> selectByItemId(Long itemId);
+    TbItemParamItem selectByItemId(Long itemId);
 }

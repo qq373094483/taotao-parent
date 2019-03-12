@@ -1,5 +1,6 @@
 package com.taotao.service.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.taotao.mapper.TbItemParamItemMapper;
 import com.taotao.pojo.TbItemParamItem;
 import com.taotao.pojo.TbItemParamItemExample;
@@ -24,10 +25,14 @@ public class ItemParamItemServiceImpl implements ItemParamItemService {
     }
 
     @Override
-    public List<TbItemParamItem> selectByItemId(Long itemId) {
+    public TbItemParamItem selectByItemId(Long itemId) {
         TbItemParamItemExample tbItemParamItemExample = new TbItemParamItemExample();
         TbItemParamItemExample.Criteria criteria = tbItemParamItemExample.createCriteria();
         criteria.andItemIdEqualTo(itemId);
-        return selectByExample(tbItemParamItemExample);
+        List<TbItemParamItem> tbItemParamItems = selectByExample(tbItemParamItemExample);
+        if (CollectionUtils.isNotEmpty(tbItemParamItems)) {
+            return tbItemParamItems.get(0);
+        }
+        return null;
     }
 }

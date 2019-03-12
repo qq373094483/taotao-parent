@@ -38,7 +38,7 @@
         iconCls:'icon-add',
         handler:function(){
         	// $(".tree-title:contains('新增商品')").parent().click();
-            $("#itemEditWindow").window({
+            $("#itemAddWindow").window({
                 onLoad :function(){
 
                 }
