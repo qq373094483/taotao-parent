@@ -46,7 +46,7 @@ var TT = TAOTAO = {
 		return (val/1000).toFixed(2);
 	},
     formatItemId: function (val, row) {
-        return "<a href='javascript:void' onclick='TAOTAO.openItemEidtWindow("+JSON.stringify(row)+")'>"+val+"</a>";
+        return "<a href='javascript:void(0)' onclick='TAOTAO.openItemEidtWindow("+JSON.stringify(row)+")'>"+val+"</a>";
     },
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
@@ -159,7 +159,24 @@ var TT = TAOTAO = {
         	});
     	});
     },
-    
+    // 初始化选择商品组件
+    initItem : function(data){
+        $(".selectItem").each(function(i,e){
+            var _ele = $(e);
+            if(data && data.id){
+                _ele.after("<span style='margin-left:10px;'>"+data.id+"</span>");
+            }else{
+                _ele.after("<span style='margin-left:10px;'></span>");
+            }
+            _ele.unbind('click').click(function(){
+                $("#itemChoiceWindow").window({
+                    onLoad :function(){
+
+                    }
+                }).window("open");
+            });
+        });
+    },
     // 初始化选择类目组件
     initItemCat : function(data){
     	$(".selectItemCat").each(function(i,e){

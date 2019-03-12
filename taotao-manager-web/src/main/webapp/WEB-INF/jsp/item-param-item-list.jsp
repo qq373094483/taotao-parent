@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<table class="easyui-datagrid" id="itemParamList" title="商品分类规格列表"
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/item/param/list',method:'get',pageSize:30,toolbar:itemParamListToolbar">
+<table class="easyui-datagrid" id="itemParamItemList" title="商品规格列表"
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/item/param/item/list',method:'get',pageSize:30,toolbar:itemParamItemListToolbar">
     <thead>
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
         <th data-options="field:'id',width:60">ID</th>
-        <th data-options="field:'itemCatId',width:80">商品类目ID</th>
-        <th data-options="field:'itemCatName',width:100">商品类目</th>
+        <th data-options="field:'itemId',width:80">商品ID</th>
+        <th data-options="field:'itemTitle',width:100">商品名称</th>
         <th data-options="field:'paramData',width:300,formatter:formatItemParamData">规格(只显示分组名称)</th>
         <th data-options="field:'created',width:130,align:'center',formatter:TAOTAO.formatDateTime">创建日期</th>
         <th data-options="field:'updated',width:130,align:'center',formatter:TAOTAO.formatDateTime">更新日期</th>
     </tr>
     </thead>
 </table>
-<div id="itemParamEditWindow" class="easyui-window" title="编辑商品分类规格"
-     data-options="modal:true,closed:true,iconCls:'icon-save',href:'/item-param-edit'"
+<div id="itemParamItemEditWindow" class="easyui-window" title="编辑商品规格"
+     data-options="modal:true,closed:true,iconCls:'icon-save',href:'/item-param-item-edit'"
      style="width:80%;height:80%;padding:10px;">
 </div>
 <script>
@@ -32,7 +32,8 @@
     }
 
     function getSelectionsIds() {
-        var itemList = $("#itemParamList");
+        console.log("a")
+        var itemList = $("#itemParamItemList");
         var sels = itemList.datagrid("getSelections");
         var ids = [];
         for (var i in sels) {
@@ -42,13 +43,13 @@
         return ids;
     }
 
-    var itemParamListToolbar = [{
+    var itemParamItemListToolbar = [{
         text: '新增',
         iconCls: 'icon-add',
         handler: function () {
             TAOTAO.createWindow({
-                url: "/item-param-add",
-                title:"新增商品分类规格"
+                url: "/item-param-item-add",
+                title:"新增商品规格"
             });
         }
     }, {
@@ -64,9 +65,9 @@
                 $.messager.alert('提示', '只能选择一种规格!');
                 return;
             }
-            $("#itemParamEditWindow").window({
+            $("#itemParamItemEditWindow").window({
                 onLoad: function () {
-                    var data = $("#itemParamList").datagrid("getSelections")[0]
+                    var data = $("#itemParamItemList").datagrid("getSelections")[0]
                     // 加载商品描述
                     $.getJSON('/item/param/query/' + data.id, function (_data) {
                         if (_data.status == 200) {
@@ -115,7 +116,7 @@
                     $.post("/item/param/delete", params, function (data) {
                         if (data.status == 200) {
                             $.messager.alert('提示', '删除商品规格成功!', undefined, function () {
-                                $("#itemParamList").datagrid("reload");
+                                $("#itemParamItemList").datagrid("reload");
                             });
                         }
                     });
