@@ -13,6 +13,10 @@
     </tr>
     </thead>
 </table>
+<div id="itemParamAddWindow" class="easyui-window" title="新增商品分类规格"
+     data-options="modal:true,closed:true,iconCls:'icon-save',href:'/item-param-add'"
+     style="width:80%;height:80%;padding:10px;">
+</div>
 <div id="itemParamEditWindow" class="easyui-window" title="编辑商品分类规格"
      data-options="modal:true,closed:true,iconCls:'icon-save',href:'/item-param-edit'"
      style="width:80%;height:80%;padding:10px;">
@@ -46,10 +50,13 @@
         text: '新增',
         iconCls: 'icon-add',
         handler: function () {
-            TAOTAO.createWindow({
-                url: "/item-param-add",
-                title:"新增商品分类规格"
-            });
+            $("#itemParamAddWindow").window({
+                onClose : function(){
+                    $(this).window("destroy");
+                },
+                onLoad : function(){
+                }
+            }).window("open");
         }
     }, {
         text: '编辑',

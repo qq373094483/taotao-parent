@@ -103,8 +103,9 @@
 			var url = "/item/param/update/"+$("#itemParamEditTable [name=cid]").val();
 			$.post(url,{"paramData":JSON.stringify(params),"id":$("#itemParamEditTable [name=id]").val()},function(data){
 				if(data.status == 200){
-					$.messager.alert('提示','修改商品规格成功!',undefined,function(){
-						$(".panel-tool-close").click();
+					$.messager.alert('提示','修改商品规格成功!',"info",function(){
+						<%--$(".panel-tool-close").click();使用它会报option属性不存在--%>
+						$('#itemParamEditWindow').window('close');
     					$("#itemParamList").datagrid("reload");
     				});
 				}

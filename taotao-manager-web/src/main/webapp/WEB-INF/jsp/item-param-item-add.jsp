@@ -92,6 +92,7 @@
 					}
 				});
 				var _val = $(e).siblings("input").val();
+				//TODO 当值为空时，不会占位
 				if($.trim(_val).length>0 && _ps.length > 0){
 					params.push({
 						"group":_val,
@@ -100,13 +101,13 @@
 				}
 			});
 			if(params.length<=0){
-			$.messager.alert('提示','至少要添加一组规格数据');
-			return;
+				$.messager.alert('提示','至少要添加一组规格数据');
+				return;
 			}
 			var url = "/item/param/item/save/"+$("#itemParamItemAddTable [name=itemId]").val();
 			$.post(url,{"paramData":JSON.stringify(params)},function(data){
 				if(data.status == 200){
-					$.messager.alert('提示','新增商品规格成功!',undefined,function(){
+					$.messager.alert('提示','新增商品规格成功!',"info",function(){
 						$(".panel-tool-close").click();
     					$("#itemParamItemList").datagrid("reload");
 						$('#itemAddChoiceWindow').window("destroy");
