@@ -22,7 +22,7 @@ public interface ItemParamItemService {
 
     int addItemParam(String paramData, Long itemId);
 
-    int updateItemParam(TbItemParamItem tbItemParamItem);
+    int updateByPrimaryKeySelective(TbItemParamItem tbItemParamItem);
 
     int delItemParam(List<Long> ids);
 }

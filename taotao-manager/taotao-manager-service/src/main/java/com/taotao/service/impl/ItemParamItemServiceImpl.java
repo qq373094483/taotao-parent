@@ -107,9 +107,9 @@ public class ItemParamItemServiceImpl implements ItemParamItemService {
     }
 
     @Override
-    public int updateItemParam(TbItemParamItem tbItemParamItem) {
+    public int updateByPrimaryKeySelective(TbItemParamItem tbItemParamItem) {
         tbItemParamItem.setUpdated(new Date());
-        return tbItemParamItemMapper.updateByPrimaryKey(tbItemParamItem);
+        return tbItemParamItemMapper.updateByPrimaryKeySelective(tbItemParamItem);
     }
 
     @Override

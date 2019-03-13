@@ -45,7 +45,7 @@ public class ItemParamItemController {
     @ResponseBody
     public TaotaoResult update(TbItemParamItem tbItemParamItem, @PathVariable Long itemId) {
         tbItemParamItem.setItemId(itemId);
-        return TaotaoResult.ok(itemParamItemService.updateItemParam(tbItemParamItem));
+        return TaotaoResult.ok(itemParamItemService.updateByPrimaryKeySelective(tbItemParamItem));
     }
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody

@@ -79,7 +79,7 @@
                             $.each(paramData, function (groupIndex, groupItem) {
                                 $(".addGroup").click();
                                 //填充一级目录
-                                var group = $($('li.param')[groupIndex]).find('input[name="group"]');
+                                var group = $($('.addGroupTr li.param')[groupIndex]).find('input[name="group"]');
                                 $(group).val(groupItem.group);
                                 $(group).prev('input').val(groupItem.group);
 

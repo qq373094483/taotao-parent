@@ -77,7 +77,6 @@ var TT = TAOTAO = {
 
                 //加载商品规格
                 $.getJSON('/item/param/item/query/'+data.id,function(_data){
-                	console.log(data);
                     if(_data && _data.status == 200 && _data.data && _data.data.paramData){
                         $("#itemeEditForm .params").show();
                         $("#itemeEditForm [name=itemParams]").val(_data.data.paramData);

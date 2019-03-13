@@ -46,16 +46,16 @@
         text: '新增',
         iconCls: 'icon-add',
         handler: function () {
-            $("<div>").css({padding:"5px"}).window({
-                width : "80%",
-                height : "80%",
-                modal:true,
-                title : "新增商品规格",
-                href :"/item-param-item-add",
-                onClose : function(){
+            $("<div>").css({padding: "5px"}).window({
+                width: "80%",
+                height: "80%",
+                modal: true,
+                title: "新增商品规格",
+                href: "/item-param-item-add",
+                onClose: function () {
                     $(this).window("destroy");
                 },
-                onLoad : function(){
+                onLoad: function () {
 
                 }
             }).window("open");
@@ -65,7 +65,6 @@
         iconCls: 'icon-edit',
         handler: function () {
             var ids = getItemSelectionsIds();
-            console.log(ids);
             if (ids.length == 0) {
                 $.messager.alert('提示', '必须选择一种规格才能编辑!');
                 return;
@@ -79,48 +78,42 @@
                     var data = $("#itemParamItemList").datagrid("getSelections")[0]
                     // 加载商品描述
                     $.getJSON('/item/param/item/query/' + data.id, function (_data) {
-                        console.log('aaaaaaaaa');
+                        var dataParam = _data.data;
                         if (_data.status == 200) {
                             //  判断选择的商品是否已经添加过规格
-                            $.getJSON("/item/param/query/itemcatid/" + rowData.cid, function (data) {//需要删除
-                                if (!data.data) {
-                                    $.messager.alert("提示", "该类目未添加规格", "warning", function () {
-                                        // $("#itemParamAddTable .selectItemCat").click();
-                                    });
-                                    return;
-                                }
-                                $('input[name="id"]').before("<span style='margin-left:10px;' itemId="+data.itemId+">"+data.itemTitle+"</span>");
-                                $('input[name="id"]').val(data.id);
-                                $('input[name="itemId"]').val(data.itemId);
-                                $('input[name="itemTitle"]').val(data.itemTitle);
-                                var paramData = JSON.parse(data.data.paramData);
-                                $(".editItemGroupTr").show();
-                                $(".editGroupItem").hide();
-                                //规格组件
-                                $.each(paramData, function (index, item) {
-                                    $(".editGroupItem").click();
-                                });
-                                //填充组和参数值
-                                var paramComponent = $('.editItemGroupTr li.param input[name="group"]').parent('span').find('input');
-                                $.each(paramComponent, function (index, item) {
-                                    var num = index + 1;
-                                    var paramDataIndex = num % 2 == 1 ? (num + 1) / 2 : num / 2;
-                                    var currentParamDataItem = paramData[paramDataIndex - 1];
-                                    $(item).val(currentParamDataItem.group);
-                                    if (num % 2 == 0) {
-                                        var params = paramData[paramDataIndex - 1].params;
-                                        //添加参数组件
-                                        $.each(params, function (paramIndex, paramItem) {
-                                            if(paramIndex!=0) {
-                                                $(item).parent().next().click()
-                                            }
-                                            var paramComponent=$(item).parents("li:not('.param')").nextAll('li')[paramIndex];
-                                            $(paramComponent).find('input[name="key"]').parent('span').find('input').val(paramItem);
-                                        });
-
-                                    }
-                                });
+                            $('input[name="id"]').before("<span style='margin-left:10px;' itemId=" + dataParam.itemId + ">" + dataParam.itemTitle + "</span>");
+                            $('input[name="id"]').val(dataParam.id);
+                            $('input[name="itemId"]').val(dataParam.itemId);
+                            $('input[name="itemTitle"]').val(dataParam.itemTitle);
+                            var paramData = JSON.parse(dataParam.paramData);
+                            $(".editItemGroupTr").show();
+                            $(".editGroupItem").hide();
+                            //规格组件
+                            $.each(paramData, function (index, item) {
+                                $(".editGroupItem").click();
                             });
+                            //填充组和参数值
+                            var paramComponent = $('.editItemGroupTr li.param input[name="group"]').parent('span').find('input');
+                            $.each(paramComponent, function (index, item) {
+                                var num = index + 1;
+                                var paramDataIndex = num % 2 == 1 ? (num + 1) / 2 : num / 2;
+                                var currentParamDataItem = paramData[paramDataIndex - 1];
+                                $(item).val(currentParamDataItem.group);
+                                if (num % 2 == 0) {
+                                    var params = paramData[paramDataIndex - 1].params;
+                                    //添加参数组件
+                                    $.each(params, function (paramIndex, paramItem) {
+                                        if (paramIndex != 0) {
+                                            $(item).parent().next().click()
+                                        }
+                                        var paramComponent = $(item).parents("li:not('.param')").nextAll('li')[paramIndex];
+                                        $(paramComponent).find('input[name="key"]').parent('span').find('input').val(paramItem['k']);
+                                        $(paramComponent).find('input[name="param"]').parent('span').find('input').val(paramItem['v']);
+                                    });
+
+                                }
+                            });
+
                         }
                     });
                 }
@@ -138,7 +131,7 @@
             $.messager.confirm('确认', '确定删除ID为 ' + ids + ' 的商品规格吗？', function (r) {
                 if (r) {
                     var params = {"ids": ids};
-                    $.post("/item/param/delete", params, function (data) {
+                    $.post("/item/param/item/delete", params, function (data) {
                         if (data.status == 200) {
                             $.messager.alert('提示', '删除商品规格成功!', undefined, function () {
                                 $("#itemParamItemList").datagrid("reload");
