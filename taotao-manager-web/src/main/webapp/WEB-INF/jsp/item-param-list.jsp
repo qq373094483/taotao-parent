@@ -57,7 +57,7 @@
         handler: function () {
             var ids = getSelectionsIds();
             if (ids.length == 0) {
-                $.messager.alert('提示', '必须选择一种规格才能编辑!');
+                $.messager.alert('提示', '必须选择一种分类规格才能编辑!');
                 return;
             }
             if (ids.indexOf(',') > 0) {

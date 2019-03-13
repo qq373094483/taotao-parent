@@ -7,7 +7,7 @@
         <th data-options="field:'id',width:60">ID</th>
         <th data-options="field:'itemId',width:80">商品ID</th>
         <th data-options="field:'itemTitle',width:100">商品名称</th>
-        <th data-options="field:'paramData',width:300,formatter:formatItemParamData">规格(只显示分组名称)</th>
+        <th data-options="field:'paramData',width:300,formatter:formatItemParamItemData">规格(只显示分组名称)</th>
         <th data-options="field:'created',width:130,align:'center',formatter:TAOTAO.formatDateTime">创建日期</th>
         <th data-options="field:'updated',width:130,align:'center',formatter:TAOTAO.formatDateTime">更新日期</th>
     </tr>
@@ -19,7 +19,7 @@
 </div>
 <script>
 
-    function formatItemParamData(value, index) {
+    function formatItemParamItemData(value, index) {
         if (value == null) {
             return "";
         }
@@ -31,7 +31,7 @@
         return array.join(",");
     }
 
-    function getSelectionsIds() {
+    function getItemSelectionsIds() {
         var itemList = $("#itemParamItemList");
         var sels = itemList.datagrid("getSelections");
         var ids = [];
@@ -46,16 +46,25 @@
         text: '新增',
         iconCls: 'icon-add',
         handler: function () {
-            TAOTAO.createWindow({
-                url: "/item-param-item-add",
-                title:"新增商品规格"
-            });
+            $("<div>").css({padding:"5px"}).window({
+                width : "80%",
+                height : "80%",
+                modal:true,
+                title : "新增商品规格",
+                href :"/item-param-item-add",
+                onClose : function(){
+                    $(this).window("destroy");
+                },
+                onLoad : function(){
+
+                }
+            }).window("open");
         }
     }, {
         text: '编辑',
         iconCls: 'icon-edit',
         handler: function () {
-            var ids = getSelectionsIds();
+            var ids = getItemSelectionsIds();
             console.log(ids);
             if (ids.length == 0) {
                 $.messager.alert('提示', '必须选择一种规格才能编辑!');
@@ -78,7 +87,7 @@
                             $(".addGroupTr").show();
                             var paramData = JSON.parse(data.paramData);
                             $.each(paramData, function (groupIndex, groupItem) {
-                                $(".addGroup").click();
+                                $(".addGroupItem").click();
                                 //填充一级目录
                                 var group = $($('li.param')[groupIndex]).find('input[name="group"]');
                                 $(group).val(groupItem.group);
@@ -87,12 +96,12 @@
                                 //填充二级目录
                                 var params = groupItem.params;
                                 $.each(params, function (paramIndex, paramItem) {
-                                    var addParam = $($(group).parent()[0]).next('.addParam')[0];
+                                    var addParamItem = $($(group).parent()[0]).next('.addParamItem')[0];
                                     if (paramIndex > 0) {
-                                        $(addParam).click();
+                                        $(addParamItem).click();
                                     }
                                     //二组目录组件
-                                    var param=$($(addParam).parent('li')[0]).nextAll('li')[paramIndex];
+                                    var param=$($(addParamItem).parent('li')[0]).nextAll('li')[paramIndex];
                                     $(param).find('input').val(paramItem);
                                 });
                             })
@@ -105,7 +114,7 @@
         text: '删除',
         iconCls: 'icon-cancel',
         handler: function () {
-            var ids = getSelectionsIds();
+            var ids = getItemSelectionsIds();
             if (ids.length == 0) {
                 $.messager.alert('提示', '未选中商品规格!');
                 return;

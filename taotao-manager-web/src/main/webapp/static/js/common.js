@@ -159,28 +159,6 @@ var TT = TAOTAO = {
         	});
     	});
     },
-    // 初始化选择商品组件
-    initItem : function(data){
-        $(".selectItem").each(function(i,e){
-            var _ele = $(e);
-            if(data && data.id){
-                _ele.after("<span style='margin-left:10px;'>"+data.id+"</span>");
-            }else{
-                _ele.after("<span style='margin-left:10px;'></span>");
-            }
-            _ele.unbind('click').click(function(){
-                $("#itemChoiceWindow").window({
-                    onLoad :function(){
-                    },
-                    onOpen: function () {
-                    },
-                    onClose : function(){
-
-                    }
-                }).window("open");
-            });
-        });
-    },
     // 初始化选择类目组件
     initItemCat : function(data){
     	$(".selectItemCat").each(function(i,e){
