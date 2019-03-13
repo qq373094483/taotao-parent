@@ -28,8 +28,23 @@ public class ItemParamItemServiceImpl implements ItemParamItemService {
     private TbItemMapper tbItemMapper;
 
     @Override
-    public TbItemParamItem selectByPrimaryKey(Long itemCatId) {
-        return tbItemParamItemMapper.selectByPrimaryKey(itemCatId);
+    public TbItemParamItem selectByPrimaryKey(Long id) {
+        return tbItemParamItemMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public ItemParamItemBO getItemParamItemBOByPrimaryKey(Long id) {
+        TbItemParamItem tbItemParamItem = selectByPrimaryKey(id);
+        if (tbItemParamItem != null) {
+            ItemParamItemBO itemParamItemBO = new ItemParamItemBO();
+            BeanUtils.copyProperties(tbItemParamItem, itemParamItemBO);
+            TbItem tbItem = tbItemMapper.selectByPrimaryKey(tbItemParamItem.getItemId());
+            if (tbItem != null) {
+                itemParamItemBO.setItemTitle(tbItem.getTitle());
+            }
+            return itemParamItemBO;
+        }
+        return null;
     }
 
     @Override

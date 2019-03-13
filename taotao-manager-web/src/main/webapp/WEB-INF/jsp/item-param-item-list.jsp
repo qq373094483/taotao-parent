@@ -78,11 +78,14 @@
                 onLoad: function () {
                     var data = $("#itemParamItemList").datagrid("getSelections")[0]
                     // 加载商品描述
-                    $.getJSON('/item/param/query/' + data.id, function (_data) {
+                    $.getJSON('/item/param/item/query/' + data.id, function (_data) {
+                        console.log('aaaaaaaaa');
                         if (_data.status == 200) {
+                            $('input[name="id"]').before("<span style='margin-left:10px;' itemId="+data.itemId+">"+data.itemTitle+"</span>");
                             $('input[name="id"]').val(data.id);
-                            $('input[name="cid"]').val(data.itemCatId);
-                            $('input[name="cid"]').prev().text(data.itemCatName).attr("cid", data.itemCatId);
+                            $('input[name="itemId"]').val(data.itemId);
+                            $('input[name="itemTitle"]').val(data.itemTitle);
+                            //TODO 渲染数据
                             //显示添加分组的组件
                             $(".addGroupTr").show();
                             var paramData = JSON.parse(data.paramData);

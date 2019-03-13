@@ -8,7 +8,10 @@ import com.taotao.pojo.TbItemParamItemExample;
 import java.util.List;
 
 public interface ItemParamItemService {
-    TbItemParamItem selectByPrimaryKey(Long itemCatId);
+    TbItemParamItem selectByPrimaryKey(Long id);
+
+    ItemParamItemBO getItemParamItemBOByPrimaryKey(Long id);
+
     List<TbItemParamItem> selectByExample(TbItemParamItemExample example);
 
     TbItemParamItem selectByItemId(Long itemId);

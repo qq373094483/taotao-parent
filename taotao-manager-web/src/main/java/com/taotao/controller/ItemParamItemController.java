@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 public class ItemParamItemController {
     @Autowired
     private ItemParamItemService itemParamItemService;
-    @RequestMapping(value = "query/{itemId}")
+    @RequestMapping(value = "query/{id}")
     @ResponseBody
-    public TaotaoResult queryItemParamItem(@PathVariable Long itemId) {
-        return TaotaoResult.ok(itemParamItemService.selectByItemId(itemId));
+    public TaotaoResult queryItemParamItem(@PathVariable Long id) {
+        return TaotaoResult.ok(itemParamItemService.getItemParamItemBOByPrimaryKey(id));
     }
 
     @RequestMapping("/list")
