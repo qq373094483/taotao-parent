@@ -81,33 +81,46 @@
                     $.getJSON('/item/param/item/query/' + data.id, function (_data) {
                         console.log('aaaaaaaaa');
                         if (_data.status == 200) {
-                            $('input[name="id"]').before("<span style='margin-left:10px;' itemId="+data.itemId+">"+data.itemTitle+"</span>");
-                            $('input[name="id"]').val(data.id);
-                            $('input[name="itemId"]').val(data.itemId);
-                            $('input[name="itemTitle"]').val(data.itemTitle);
-                            //TODO 渲染数据
-                            //显示添加分组的组件
-                            $(".addGroupTr").show();
-                            var paramData = JSON.parse(data.paramData);
-                            $.each(paramData, function (groupIndex, groupItem) {
-                                $(".addGroupItem").click();
-                                //填充一级目录
-                                var group = $($('li.param')[groupIndex]).find('input[name="group"]');
-                                $(group).val(groupItem.group);
-                                $(group).prev('input').val(groupItem.group);
-
-                                //填充二级目录
-                                var params = groupItem.params;
-                                $.each(params, function (paramIndex, paramItem) {
-                                    var addParamItem = $($(group).parent()[0]).next('.addParamItem')[0];
-                                    if (paramIndex > 0) {
-                                        $(addParamItem).click();
-                                    }
-                                    //二组目录组件
-                                    var param=$($(addParamItem).parent('li')[0]).nextAll('li')[paramIndex];
-                                    $(param).find('input').val(paramItem);
+                            //  判断选择的商品是否已经添加过规格
+                            $.getJSON("/item/param/query/itemcatid/" + rowData.cid, function (data) {//需要删除
+                                if (!data.data) {
+                                    $.messager.alert("提示", "该类目未添加规格", "warning", function () {
+                                        // $("#itemParamAddTable .selectItemCat").click();
+                                    });
+                                    return;
+                                }
+                                $('input[name="id"]').before("<span style='margin-left:10px;' itemId="+data.itemId+">"+data.itemTitle+"</span>");
+                                $('input[name="id"]').val(data.id);
+                                $('input[name="itemId"]').val(data.itemId);
+                                $('input[name="itemTitle"]').val(data.itemTitle);
+                                var paramData = JSON.parse(data.data.paramData);
+                                $(".editItemGroupTr").show();
+                                $(".editGroupItem").hide();
+                                //规格组件
+                                $.each(paramData, function (index, item) {
+                                    $(".editGroupItem").click();
                                 });
-                            })
+                                //填充组和参数值
+                                var paramComponent = $('.editItemGroupTr li.param input[name="group"]').parent('span').find('input');
+                                $.each(paramComponent, function (index, item) {
+                                    var num = index + 1;
+                                    var paramDataIndex = num % 2 == 1 ? (num + 1) / 2 : num / 2;
+                                    var currentParamDataItem = paramData[paramDataIndex - 1];
+                                    $(item).val(currentParamDataItem.group);
+                                    if (num % 2 == 0) {
+                                        var params = paramData[paramDataIndex - 1].params;
+                                        //添加参数组件
+                                        $.each(params, function (paramIndex, paramItem) {
+                                            if(paramIndex!=0) {
+                                                $(item).parent().next().click()
+                                            }
+                                            var paramComponent=$(item).parents("li:not('.param')").nextAll('li')[paramIndex];
+                                            $(paramComponent).find('input[name="key"]').parent('span').find('input').val(paramItem);
+                                        });
+
+                                    }
+                                });
+                            });
                         }
                     });
                 }
