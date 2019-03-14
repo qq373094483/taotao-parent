@@ -85,11 +85,13 @@
 					var paramsTem={};
 					var _val = $(_e).siblings("input").val();
 					var key=$(k[_i]).val();
+					paramsTem['k']=key;
 					if($.trim(_val).length>0){
-						paramsTem['k']=key;
 						paramsTem['v']=_val;
-						_ps.push(paramsTem)
+					}else{
+						paramsTem['v']="";
 					}
+					_ps.push(paramsTem)
 				});
 				var _val = $(e).siblings("input").val();
 				//TODO 当值为空时，不会占位
