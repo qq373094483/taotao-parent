@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -74,7 +75,7 @@ public class OrderCartController {
 	 * 生成订单处理
 	 */
 	@RequestMapping(value="/order/create", method=RequestMethod.POST)
-	public String createOrder(OrderInfo orderInfo, Model model) {
+	public String createOrder(OrderInfo orderInfo, Model model, HttpServletRequest request, HttpServletResponse response) {
 		//生成订单
 		TaotaoResult result = orderService.createOrder(orderInfo);
 		//返回逻辑视图
@@ -84,7 +85,7 @@ public class OrderCartController {
 		DateTime dateTime = new DateTime();
 		dateTime = dateTime.plusDays(3);
 		model.addAttribute("date", dateTime.toString("yyyy-MM-dd"));
-		
+		CookieUtils.deleteCookie(request,response,CART_KEY);
 		return "success";
 	}
 }

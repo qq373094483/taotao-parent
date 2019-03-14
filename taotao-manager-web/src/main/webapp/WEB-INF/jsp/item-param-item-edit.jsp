@@ -95,7 +95,6 @@
 					_ps.push(paramsTem)
 				});
 				var _val = $(e).siblings("input").val();
-				//TODO 当值为空时，不会占位
 				if($.trim(_val).length>0 && _ps.length > 0){
 					params.push({
 						"group":_val,
