@@ -21,25 +21,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 
 @Controller
+@RequestMapping("user")
 public class UserController {
     @Autowired
     private UserService userService;
     @Value("${TOKEN_KEY}")
     private String TOKEN_KEY;
 
-    @RequestMapping("/user/check/{param}/{type}")
+    @RequestMapping("check/{param}/{type}")
     @ResponseBody
     public TaotaoResult checkUserData(@PathVariable String param, @PathVariable Integer type) {
         return userService.checkData(param, type);
     }
 
-    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
+    @RequestMapping(value = "register", method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult register(TbUser tbUser) {
         return userService.register(tbUser);
     }
 
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult login(String username, String password, HttpServletResponse response, HttpServletRequest request) {
         TaotaoResult result = userService.login(username, password);
@@ -49,13 +50,20 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(value = "logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response) {
+        String referer = request.getHeader("Referer");
+        CookieUtils.deleteCookie(request,response,TOKEN_KEY);
+        return "redirect:"+referer;
+    }
+
     /**
      *
      * @param token
      * @param callback
      * @return
      */
-    /*@RequestMapping(value = "/user/token/{token}", method = RequestMethod.GET,
+    /*@RequestMapping(value = "token/{token}", method = RequestMethod.GET,
     //默认返回的string的content-type是text/plain，指定返回响应数据的content-type
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
@@ -74,7 +82,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )*/
     //jsonp的第二种方法，spring4.1及以上
-    @RequestMapping(value = "/user/token/{token}", method = RequestMethod.GET)
+    @RequestMapping(value = "token/{token}", method = RequestMethod.GET)
     @ResponseBody
     public Object getUserByToken(@PathVariable String token,String callback) {
         TaotaoResult result = userService.getUserByToken(token);
