@@ -2,16 +2,25 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
+/**
+ * 商品库存变更明细
+ */
 public class TbItemStockAlterationDetail {
     private Long id;
 
+    /**
+     * 商品ID
+     */
     private Long itemId;
 
+    /**
+     * 商品库存变更数量
+     */
     private Integer num;
 
-    private Date createTime;
+    private Date created;
 
-    private Date updateTime;
+    private Date updated;
 
     public Long getId() {
         return id;
@@ -37,19 +46,19 @@ public class TbItemStockAlterationDetail {
         this.num = num;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getUpdated() {
+        return updated;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

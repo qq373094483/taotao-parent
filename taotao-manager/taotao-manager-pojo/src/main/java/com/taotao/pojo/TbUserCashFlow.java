@@ -2,20 +2,37 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
+/**
+ * 用户现金流水
+ */
 public class TbUserCashFlow {
     private Long id;
 
+    /**
+     * 流水单号
+     */
     private String cashFlowNo;
 
+    /**
+     * 用户ID
+     */
     private Long userId;
 
     private Integer amount;
 
+    /**
+     * 流水类型,1.商品支出，2.退款，3.充值，4.官方充值
+     */
     private Byte type;
 
-    private Date createTime;
+    /**
+     * 余额
+     */
+    private Integer balance;
 
-    private Date updateTime;
+    private Date created;
+
+    private Date updated;
 
     public Long getId() {
         return id;
@@ -57,19 +74,27 @@ public class TbUserCashFlow {
         this.type = type;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Integer getBalance() {
+        return balance;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

@@ -1,12 +1,24 @@
 package com.taotao.pojo;
 
+/**
+ * 用户年消费表
+ */
 public class TbUserConsumeYearReport {
     private Long id;
 
+    /**
+     * 用户ID
+     */
     private Long userId;
 
+    /**
+     * 消费金额
+     */
     private Integer amount;
 
+    /**
+     * 消费类型,1.商品支出，2.退款，3.充值，4.官方充值
+     */
     private Byte type;
 
     private Integer year;

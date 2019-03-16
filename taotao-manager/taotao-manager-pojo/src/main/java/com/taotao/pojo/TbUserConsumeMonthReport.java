@@ -2,22 +2,34 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
+/**
+ * 用户月消费表
+ */
 public class TbUserConsumeMonthReport {
     private Long id;
 
+    /**
+     * 用户ID
+     */
     private Long userId;
 
+    /**
+     * 消费金额
+     */
     private Integer amount;
 
+    /**
+     * 消费类型,1.商品支出，2.退款，3.充值，4.官方充值
+     */
     private Byte type;
 
     private Integer year;
 
     private Integer month;
 
-    private Date createTime;
+    private Date created;
 
-    private Date updateTime;
+    private Date updated;
 
     public Long getId() {
         return id;
@@ -67,19 +79,19 @@ public class TbUserConsumeMonthReport {
         this.month = month;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getUpdated() {
+        return updated;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

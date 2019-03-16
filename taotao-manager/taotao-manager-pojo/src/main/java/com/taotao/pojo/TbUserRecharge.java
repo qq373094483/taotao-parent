@@ -2,20 +2,40 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
+/**
+ * 用户充值表
+ */
 public class TbUserRecharge {
     private Long id;
 
+    /**
+     * 用户ID
+     */
     private Long userId;
 
+    /**
+     * 充值单号
+     */
     private String rechargeNo;
 
+    /**
+     * 充值金额
+     */
     private Integer amount;
 
+    /**
+     * 余额
+     */
+    private Integer balance;
+
+    /**
+     * 充值方式,1.支付宝，2.微信
+     */
     private Byte way;
 
-    private Date createTime;
+    private Date created;
 
-    private Date updateTime;
+    private Date updated;
 
     public Long getId() {
         return id;
@@ -49,6 +69,14 @@ public class TbUserRecharge {
         this.amount = amount;
     }
 
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
     public Byte getWay() {
         return way;
     }
@@ -57,19 +85,19 @@ public class TbUserRecharge {
         this.way = way;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getUpdated() {
+        return updated;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }
