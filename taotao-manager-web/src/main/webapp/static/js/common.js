@@ -43,7 +43,7 @@ var TT = TAOTAO = {
 	},
 	// 格式化价格
 	formatPrice : function(val,row){
-		return (val/1000).toFixed(2);
+		return (val/100).toFixed(2);
 	},
     formatItemId: function (val, row) {
         return "<a href='javascript:void(0)' onclick='TAOTAO.openItemEidtWindow("+JSON.stringify(row)+")'>"+val+"</a>";
