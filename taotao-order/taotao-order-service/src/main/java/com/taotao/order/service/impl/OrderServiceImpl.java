@@ -1,13 +1,5 @@
 package com.taotao.order.service.impl;
 
-import java.awt.datatransfer.FlavorEvent;
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.jedis.JedisClient;
 import com.taotao.mapper.TbOrderItemMapper;
@@ -17,6 +9,12 @@ import com.taotao.order.pojo.OrderInfo;
 import com.taotao.order.service.OrderService;
 import com.taotao.pojo.TbOrderItem;
 import com.taotao.pojo.TbOrderShipping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 订单处理Server
@@ -77,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
 		TbOrderShipping orderShipping = orderInfo.getOrderShipping();
 		orderShipping.setOrderId(orderId);
 		orderShipping.setCreated(new Date());
-		orderShipping.setUpdated(new Date());
+		orderShipping.setUpdated(orderShipping.getCreated());
 		orderShippingMapper.insert(orderShipping);
 		//返回订单号
 		return TaotaoResult.ok(orderId);
