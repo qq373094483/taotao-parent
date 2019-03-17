@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+    <!--开启注解-->
+    <!--测试时开启！<context:annotation-config/>开启注解,context:component-scan 是既开启注解，也扫描包-->
+    <!--<context:annotation-config/>-->
+
+    <bean id="hostAndPorts"  class="com.taotao.jedis.HostAndPortSet">
+        <property name="hostAndPorts" value="192.168.135.213:6379,192.168.135.214:6379,192.168.135.215:6379,192.168.135.223:6379,192.168.135.224:6379,192.168.135.225:6379"/>
+    </bean>
+     <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+        <constructor-arg ref="hostAndPorts"/>
+    </bean>
+    <bean id="jedisClientCluster" class="com.taotao.jedis.JedisClientCluster"/>
+</beans>
