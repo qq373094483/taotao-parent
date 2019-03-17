@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 用户日消费表
  */
-public class TbUserConsumeDayReport {
+public class TbUserConsumeDayReport extends BasePO {
     private Long id;
 
     /**

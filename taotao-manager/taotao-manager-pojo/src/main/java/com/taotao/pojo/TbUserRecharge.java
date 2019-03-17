@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 用户充值表
  */
-public class TbUserRecharge {
+public class TbUserRecharge extends BasePO {
     private Long id;
 
     /**

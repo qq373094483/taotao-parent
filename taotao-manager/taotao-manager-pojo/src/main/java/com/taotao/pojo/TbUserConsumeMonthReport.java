@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 用户月消费表
  */
-public class TbUserConsumeMonthReport {
+public class TbUserConsumeMonthReport extends BasePO {
     private Long id;
 
     /**

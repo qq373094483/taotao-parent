@@ -105,6 +105,66 @@ public class TbOrderShippingExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdEqualTo(Long value) {
+            addCriterion("id =", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotEqualTo(Long value) {
+            addCriterion("id <>", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThan(Long value) {
+            addCriterion("id >", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("id >=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThan(Long value) {
+            addCriterion("id <", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThanOrEqualTo(Long value) {
+            addCriterion("id <=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIn(List<Long> values) {
+            addCriterion("id in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotIn(List<Long> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(Long value1, Long value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(Long value1, Long value2) {
+            addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderIdIsNull() {
             addCriterion("order_id is null");
             return (Criteria) this;
@@ -115,62 +175,52 @@ public class TbOrderShippingExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdEqualTo(String value) {
+        public Criteria andOrderIdEqualTo(Long value) {
             addCriterion("order_id =", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotEqualTo(String value) {
+        public Criteria andOrderIdNotEqualTo(Long value) {
             addCriterion("order_id <>", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThan(String value) {
+        public Criteria andOrderIdGreaterThan(Long value) {
             addCriterion("order_id >", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThanOrEqualTo(String value) {
+        public Criteria andOrderIdGreaterThanOrEqualTo(Long value) {
             addCriterion("order_id >=", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThan(String value) {
+        public Criteria andOrderIdLessThan(Long value) {
             addCriterion("order_id <", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThanOrEqualTo(String value) {
+        public Criteria andOrderIdLessThanOrEqualTo(Long value) {
             addCriterion("order_id <=", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLike(String value) {
-            addCriterion("order_id like", value, "orderId");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderIdNotLike(String value) {
-            addCriterion("order_id not like", value, "orderId");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderIdIn(List<String> values) {
+        public Criteria andOrderIdIn(List<Long> values) {
             addCriterion("order_id in", values, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotIn(List<String> values) {
+        public Criteria andOrderIdNotIn(List<Long> values) {
             addCriterion("order_id not in", values, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdBetween(String value1, String value2) {
+        public Criteria andOrderIdBetween(Long value1, Long value2) {
             addCriterion("order_id between", value1, value2, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotBetween(String value1, String value2) {
+        public Criteria andOrderIdNotBetween(Long value1, Long value2) {
             addCriterion("order_id not between", value1, value2, "orderId");
             return (Criteria) this;
         }
@@ -852,6 +902,76 @@ public class TbOrderShippingExample {
 
         public Criteria andUpdatedNotBetween(Date value1, Date value2) {
             addCriterion("updated not between", value1, value2, "updated");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoIsNull() {
+            addCriterion("order_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoIsNotNull() {
+            addCriterion("order_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoEqualTo(String value) {
+            addCriterion("order_no =", value, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoNotEqualTo(String value) {
+            addCriterion("order_no <>", value, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoGreaterThan(String value) {
+            addCriterion("order_no >", value, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoGreaterThanOrEqualTo(String value) {
+            addCriterion("order_no >=", value, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoLessThan(String value) {
+            addCriterion("order_no <", value, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoLessThanOrEqualTo(String value) {
+            addCriterion("order_no <=", value, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoLike(String value) {
+            addCriterion("order_no like", value, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoNotLike(String value) {
+            addCriterion("order_no not like", value, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoIn(List<String> values) {
+            addCriterion("order_no in", values, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoNotIn(List<String> values) {
+            addCriterion("order_no not in", values, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoBetween(String value1, String value2) {
+            addCriterion("order_no between", value1, value2, "orderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNoNotBetween(String value1, String value2) {
+            addCriterion("order_no not between", value1, value2, "orderNo");
             return (Criteria) this;
         }
     }

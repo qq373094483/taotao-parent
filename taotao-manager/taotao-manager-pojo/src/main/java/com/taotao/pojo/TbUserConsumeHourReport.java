@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 用户小时消费表
  */
-public class TbUserConsumeHourReport {
+public class TbUserConsumeHourReport extends BasePO {
     private Long id;
 
     /**

@@ -1,11 +1,11 @@
 package com.taotao.pojo;
 
 public class TbOrderItem extends BasePO {
-    private String id;
+    private Long id;
 
-    private String itemId;
+    private Long itemId;
 
-    private String orderId;
+    private Long orderId;
 
     private Integer num;
 
@@ -17,28 +17,30 @@ public class TbOrderItem extends BasePO {
 
     private String picPath;
 
-    public String getId() {
+    private String orderNo;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId == null ? null : itemId.trim();
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getNum() {
@@ -79,5 +81,13 @@ public class TbOrderItem extends BasePO {
 
     public void setPicPath(String picPath) {
         this.picPath = picPath == null ? null : picPath.trim();
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo == null ? null : orderNo.trim();
     }
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 商品库存变更明细
  */
-public class TbItemStockAlterationDetail {
+public class TbItemStockAlterationDetail extends BasePO {
     private Long id;
 
     /**

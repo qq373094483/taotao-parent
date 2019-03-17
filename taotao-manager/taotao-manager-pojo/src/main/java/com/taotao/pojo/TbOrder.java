@@ -2,27 +2,18 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
+/**
+ *
+ */
 public class TbOrder extends BasePO {
-    private String orderId;
+    private Long id;
 
-    /**
-     * 实付金额
-     */
     private String payment;
 
-    /**
-     * 支付类型，1、在线支付，2、货到付款
-     */
     private Integer paymentType;
 
-    /**
-     * 邮费。精确到2位小数;单位:元。如:200.07，表示:200元7分
-     */
     private String postFee;
 
-    /**
-     * 1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭
-     */
     private Integer status;
 
     private Date createTime;
@@ -59,9 +50,6 @@ public class TbOrder extends BasePO {
      */
     private String shippingCode;
 
-    /**
-     * 用户ID
-     */
     private Long userId;
 
     /**
@@ -79,12 +67,19 @@ public class TbOrder extends BasePO {
      */
     private Integer buyerRate;
 
-    public String getOrderId() {
-        return orderId;
+    private String orderNo;
+
+    /**
+     * 评价时间
+     */
+    private Date evaluateTime;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPayment() {
@@ -213,5 +208,21 @@ public class TbOrder extends BasePO {
 
     public void setBuyerRate(Integer buyerRate) {
         this.buyerRate = buyerRate;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo == null ? null : orderNo.trim();
+    }
+
+    public Date getEvaluateTime() {
+        return evaluateTime;
+    }
+
+    public void setEvaluateTime(Date evaluateTime) {
+        this.evaluateTime = evaluateTime;
     }
 }

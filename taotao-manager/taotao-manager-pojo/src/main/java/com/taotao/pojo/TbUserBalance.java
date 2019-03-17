@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 用户余额表
  */
-public class TbUserBalance {
+public class TbUserBalance extends BasePO {
     private Long id;
 
     /**

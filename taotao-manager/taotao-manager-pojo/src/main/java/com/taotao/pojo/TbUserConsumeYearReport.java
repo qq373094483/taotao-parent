@@ -3,7 +3,7 @@ package com.taotao.pojo;
 /**
  * 用户年消费表
  */
-public class TbUserConsumeYearReport {
+public class TbUserConsumeYearReport extends BasePO {
     private Long id;
 
     /**

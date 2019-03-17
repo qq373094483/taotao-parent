@@ -3,7 +3,9 @@ package com.taotao.pojo;
 import java.util.Date;
 
 public class TbOrderShipping extends BasePO {
-    private String orderId;
+    private Long id;
+
+    private Long orderId;
 
     private String receiverName;
 
@@ -25,12 +27,22 @@ public class TbOrderShipping extends BasePO {
 
     private Date updated;
 
-    public String getOrderId() {
+    private String orderNo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public String getReceiverName() {
@@ -111,5 +123,13 @@ public class TbOrderShipping extends BasePO {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo == null ? null : orderNo.trim();
     }
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 用户现金流水
  */
-public class TbUserCashFlow {
+public class TbUserCashFlow extends BasePO {
     private Long id;
 
     /**
