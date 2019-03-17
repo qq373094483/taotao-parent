@@ -1,5 +1,6 @@
 package com.taotao.pojo;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -8,12 +9,24 @@ import java.util.Date;
 public class TbOrder extends BasePO {
     private Long id;
 
-    private String payment;
+    /**
+     * 实付金额。精确到2位小数;单位:元。如:200.07，表示:200元7分
+     */
+    private BigDecimal payment;
 
+    /**
+     * 支付类型，1、在线支付，2、货到付款
+     */
     private Integer paymentType;
 
-    private String postFee;
+    /**
+     * 邮费。精确到2位小数;单位:元。如:200.07，表示:200元7分
+     */
+    private BigDecimal postFee;
 
+    /**
+     * 状态：1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭（已取消）,7、已评价
+     */
     private Integer status;
 
     private Date createTime;
@@ -82,12 +95,12 @@ public class TbOrder extends BasePO {
         this.id = id;
     }
 
-    public String getPayment() {
+    public BigDecimal getPayment() {
         return payment;
     }
 
-    public void setPayment(String payment) {
-        this.payment = payment == null ? null : payment.trim();
+    public void setPayment(BigDecimal payment) {
+        this.payment = payment;
     }
 
     public Integer getPaymentType() {
@@ -98,12 +111,12 @@ public class TbOrder extends BasePO {
         this.paymentType = paymentType;
     }
 
-    public String getPostFee() {
+    public BigDecimal getPostFee() {
         return postFee;
     }
 
-    public void setPostFee(String postFee) {
-        this.postFee = postFee == null ? null : postFee.trim();
+    public void setPostFee(BigDecimal postFee) {
+        this.postFee = postFee;
     }
 
     public Integer getStatus() {

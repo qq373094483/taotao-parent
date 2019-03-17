@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
 	public TaotaoResult createOrder(OrderInfo orderInfo) {
 		String orderNo = genOrderNo();
 		//免邮费
-		orderInfo.setPostFee("0");
+		orderInfo.setPostFee(BigDecimal.ZERO);
 		//1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭
 		orderInfo.setStatus(1);
 		//订单创建时间

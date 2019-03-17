@@ -3,9 +3,9 @@
 <mapper namespace="com.taotao.mapper.TbOrderMapper" >
   <resultMap id="BaseResultMap" type="com.taotao.pojo.TbOrder" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="payment" property="payment" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="DECIMAL" />
     <result column="payment_type" property="paymentType" jdbcType="INTEGER" />
-    <result column="post_fee" property="postFee" jdbcType="VARCHAR" />
+    <result column="post_fee" property="postFee" jdbcType="DECIMAL" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -116,6 +116,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.taotao.pojo.TbOrder" >
+    <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into tb_order (id, payment, payment_type, 
       post_fee, status, create_time, 
       update_time, payment_time, consign_time, 
@@ -123,8 +126,8 @@
       shipping_code, user_id, buyer_message, 
       buyer_nick, buyer_rate, order_no, 
       evaluate_time)
-    values (#{id,jdbcType=BIGINT}, #{payment,jdbcType=VARCHAR}, #{paymentType,jdbcType=INTEGER}, 
-      #{postFee,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=BIGINT}, #{payment,jdbcType=DECIMAL}, #{paymentType,jdbcType=INTEGER}, 
+      #{postFee,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{paymentTime,jdbcType=TIMESTAMP}, #{consignTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{shippingName,jdbcType=VARCHAR}, 
       #{shippingCode,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{buyerMessage,jdbcType=VARCHAR}, 
@@ -197,13 +200,13 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="payment != null" >
-        #{payment,jdbcType=VARCHAR},
+        #{payment,jdbcType=DECIMAL},
       </if>
       <if test="paymentType != null" >
         #{paymentType,jdbcType=INTEGER},
       </if>
       <if test="postFee != null" >
-        #{postFee,jdbcType=VARCHAR},
+        #{postFee,jdbcType=DECIMAL},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -265,13 +268,13 @@
         id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.payment != null" >
-        payment = #{record.payment,jdbcType=VARCHAR},
+        payment = #{record.payment,jdbcType=DECIMAL},
       </if>
       <if test="record.paymentType != null" >
         payment_type = #{record.paymentType,jdbcType=INTEGER},
       </if>
       <if test="record.postFee != null" >
-        post_fee = #{record.postFee,jdbcType=VARCHAR},
+        post_fee = #{record.postFee,jdbcType=DECIMAL},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
@@ -326,9 +329,9 @@
   <update id="updateByExample" parameterType="map" >
     update tb_order
     set id = #{record.id,jdbcType=BIGINT},
-      payment = #{record.payment,jdbcType=VARCHAR},
+      payment = #{record.payment,jdbcType=DECIMAL},
       payment_type = #{record.paymentType,jdbcType=INTEGER},
-      post_fee = #{record.postFee,jdbcType=VARCHAR},
+      post_fee = #{record.postFee,jdbcType=DECIMAL},
       status = #{record.status,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -352,13 +355,13 @@
     update tb_order
     <set >
       <if test="payment != null" >
-        payment = #{payment,jdbcType=VARCHAR},
+        payment = #{payment,jdbcType=DECIMAL},
       </if>
       <if test="paymentType != null" >
         payment_type = #{paymentType,jdbcType=INTEGER},
       </if>
       <if test="postFee != null" >
-        post_fee = #{postFee,jdbcType=VARCHAR},
+        post_fee = #{postFee,jdbcType=DECIMAL},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -410,9 +413,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.taotao.pojo.TbOrder" >
     update tb_order
-    set payment = #{payment,jdbcType=VARCHAR},
+    set payment = #{payment,jdbcType=DECIMAL},
       payment_type = #{paymentType,jdbcType=INTEGER},
-      post_fee = #{postFee,jdbcType=VARCHAR},
+      post_fee = #{postFee,jdbcType=DECIMAL},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
