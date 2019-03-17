@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,6 +23,7 @@ import com.taotao.order.pojo.OrderInfo;
 import com.taotao.order.service.OrderService;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbUser;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 订单确认页面处理Controller
@@ -31,6 +33,7 @@ import com.taotao.pojo.TbUser;
  * @version 1.0
  */
 @Controller
+@RequestMapping("order")
 public class OrderCartController {
 	
 	@Value("${CART_KEY}")
@@ -45,7 +48,7 @@ public class OrderCartController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/order/order-cart")
+	@RequestMapping("order-cart")
 	public String showOrderCart(HttpServletRequest request) {
 		//用户必须是登录状态
 		//取用户id
@@ -74,12 +77,12 @@ public class OrderCartController {
 	/**
 	 * 生成订单处理
 	 */
-	@RequestMapping(value="/order/create", method=RequestMethod.POST)
+	@RequestMapping(value="create", method=RequestMethod.POST)
 	public String createOrder(OrderInfo orderInfo, Model model, HttpServletRequest request, HttpServletResponse response) {
 		//生成订单
 		TaotaoResult result = orderService.createOrder(orderInfo);
 		//返回逻辑视图
-		model.addAttribute("orderId", result.getData().toString());
+		model.addAttribute("orderId", result.getData());
 		model.addAttribute("payment", orderInfo.getPayment());
 		//预计送达时间，预计三天后送达
 		DateTime dateTime = new DateTime();
@@ -88,4 +91,7 @@ public class OrderCartController {
 		CookieUtils.deleteCookie(request,response,CART_KEY);
 		return "success";
 	}
+
+
+
 }

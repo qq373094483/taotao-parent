@@ -7,17 +7,22 @@ import com.taotao.mapper.TbOrderMapper;
 import com.taotao.mapper.TbOrderShippingMapper;
 import com.taotao.order.pojo.OrderInfo;
 import com.taotao.order.service.OrderService;
+import com.taotao.pojo.TbOrder;
+import com.taotao.pojo.TbOrderExample;
 import com.taotao.pojo.TbOrderItem;
 import com.taotao.pojo.TbOrderShipping;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import static com.taotao.pojo.TbOrder.Status;
 
 /**
  * 订单处理Server
@@ -90,6 +95,57 @@ public class OrderServiceImpl implements OrderService {
 		orderShippingMapper.insert(orderShipping);
 		//返回订单号
 		return TaotaoResult.ok(orderId);
+	}
+
+	@Override
+	public TaotaoResult cancelOrder(String orderNo) {
+		TbOrder tbOrder = getByOrderNo(orderNo);
+		if (tbOrder == null) {
+			return TaotaoResult.fail( String.format("订单号：%s不存在", orderNo));
+		}
+		tbOrder.setStatus(Status.CANCEL.getCode());
+		tbOrder.setCloseTime(new Date());
+		TbOrderExample tbOrderExample = new TbOrderExample();
+		TbOrderExample.Criteria criteria = tbOrderExample.createCriteria();
+		criteria.andStatusEqualTo(Status.ORDERS.getCode());
+		criteria.andIdEqualTo(tbOrder.getId());
+		int updateNum = orderMapper.updateByExampleSelective(tbOrder, tbOrderExample);
+		return TaotaoResult.ok(updateNum);
+	}
+
+	@Override
+	public TbOrder getByOrderNo(String orderNo) {
+		TbOrderExample tbOrderExample = new TbOrderExample();
+		TbOrderExample.Criteria criteria = tbOrderExample.createCriteria();
+		criteria.andOrderNoEqualTo(orderNo);
+		List<TbOrder> tbOrders = orderMapper.selectByExample(tbOrderExample);
+		if(CollectionUtils.isEmpty(tbOrders)){
+			return null;
+		}
+		return tbOrders.get(0);
+	}
+
+	@Override
+	public TaotaoResult payOrder(String orderNo, Integer paymentType) {
+		TbOrder tbOrder = getByOrderNo(orderNo);
+		if (paymentType == 1||tbOrder.getPaymentType()==1) {
+			return TaotaoResult.fail(String.format("订单号：%s是货到付款，无需支付", orderNo));
+		}
+		if (tbOrder == null) {
+			return TaotaoResult.fail( String.format("订单号：%s不存在", orderNo));
+		}
+		tbOrder.setStatus(Status.PAYING.getCode());
+		//余额支付
+		if (4 == paymentType) {
+			tbOrder.setStatus(Status.PAYED.getCode());
+		}
+		tbOrder.setPaymentTime(new Date());
+		TbOrderExample tbOrderExample = new TbOrderExample();
+		TbOrderExample.Criteria criteria = tbOrderExample.createCriteria();
+		criteria.andStatusEqualTo(Status.ORDERS.getCode());
+		criteria.andIdEqualTo(tbOrder.getId());
+		int updateNum = orderMapper.updateByExampleSelective(tbOrder, tbOrderExample);
+		return TaotaoResult.ok(updateNum);
 	}
 
 }

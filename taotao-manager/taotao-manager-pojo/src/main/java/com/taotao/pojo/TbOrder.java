@@ -15,7 +15,7 @@ public class TbOrder extends BasePO {
     private BigDecimal payment;
 
     /**
-     * 支付类型，1、在线支付，2、货到付款
+     * 支付类型，1、货到付款，2、支付宝，3、微信,4.余额支付
      */
     private Integer paymentType;
 
@@ -25,7 +25,7 @@ public class TbOrder extends BasePO {
     private BigDecimal postFee;
 
     /**
-     * 状态：1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭（已取消）,7、已评价
+     * 状态：1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭（已取消）,7、已评价,8、正在支付
      */
     private Integer status;
 
@@ -86,6 +86,32 @@ public class TbOrder extends BasePO {
      * 评价时间
      */
     private Date evaluateTime;
+
+    //状态：1、未付款(下单)，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭（已取消）,7、已评价
+    public enum Status{
+        ORDERS(1,"已下单"),
+        PAYED(2,"已付款"),
+        NOT_SEND_OUT(3,"未发货"),
+        SENDED_OUT(4,"已发货"),
+        SUCCESS(5,"交易成功"),
+        CANCEL(6,"已取消"),
+        ALREADY_EVALUATION(7,"已评价"),
+        PAYING(8,"支付中");
+        private final int code;
+        private final String desc;
+        Status(int code, String desc) {
+            this.code = code;
+            this.desc = desc;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+    }
 
     public Long getId() {
         return id;
