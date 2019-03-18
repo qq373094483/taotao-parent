@@ -1,6 +1,0 @@
-com\taotao\jedis\JedisClientCluster.class
-com\taotao\ordertimer\service\impl\OrderAlreadyEvaluationServiceImpl.class
-com\taotao\ordertimer\service\impl\OrderCancelServiceImpl.class
-com\taotao\jedis\JedisClientPool.class
-com\taotao\jedis\JedisClient.class
-com\taotao\jedis\HostAndPortSet.class
