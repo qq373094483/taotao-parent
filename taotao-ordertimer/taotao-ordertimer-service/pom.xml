@@ -19,6 +19,11 @@
     <dependencies>
         <dependency>
             <groupId>com.taotao</groupId>
+            <artifactId>taotao-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.taotao</groupId>
             <artifactId>taotao-ordertimer-interface</artifactId>
             <version>${project.version}</version>
         </dependency>

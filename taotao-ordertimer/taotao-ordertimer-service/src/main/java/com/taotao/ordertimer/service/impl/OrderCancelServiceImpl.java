@@ -1,8 +1,12 @@
 package com.taotao.ordertimer.service.impl;
 
+import com.taotao.ordertimer.component.ZookeeperComponent;
 import com.taotao.ordertimer.service.OrderCancelService;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.Watcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +18,23 @@ public class OrderCancelServiceImpl implements OrderCancelService {
     @Value("${SERVER.PORT}")
     private Integer serverPort;
 
+    @Autowired
+    private ZookeeperComponent zookeeperComponent;
+
     @PostConstruct
     public void registZookeeper() {
-        System.out.println(serverPort);
-        System.out.println("爱美网");
-        LOGGER.info("黄");
-        System.out.println(System.getProperty("file.encoding"));
+        try {
+            zookeeperComponent.createEphemeralNode("/delayQueue/orderCancel/server/" + serverPort, serverPort + "");
+            zookeeperComponent.getData("/delayQueue/orderCancel/server/" + serverPort, event -> {
+                LOGGER.info("state:{},path:{},type:{}", event.getState(), event.getPath(), event.getType());
+                if (event.getType()==Watcher.Event.EventType.NodeDeleted) {
+                    System.out.println("a");
+                }
+            }, null);
+        } catch (KeeperException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
