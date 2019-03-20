@@ -6,7 +6,7 @@ import com.taotao.pojo.TbOrder;
 
 public interface OrderService {
 
-	TaotaoResult createOrder(OrderInfo orderInfo);
+	TaotaoResult<Long> createOrder(OrderInfo orderInfo);
 
 	TaotaoResult cancelOrder(String orderNo);
 

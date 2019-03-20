@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
 		return format + StringUtils.leftPad(orderSerial.toString(),6 ,"0");
 	}
 	@Override
-	public TaotaoResult createOrder(OrderInfo orderInfo) {
+	public TaotaoResult<Long> createOrder(OrderInfo orderInfo) {
 		String orderNo = genOrderNo();
 		//免邮费
 		orderInfo.setPostFee(BigDecimal.ZERO);

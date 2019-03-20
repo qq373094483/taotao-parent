@@ -11,7 +11,7 @@ public interface TbOrderShippingMapper {
 
     int deleteByExample(TbOrderShippingExample example);
 
-    int deleteByPrimaryKey(String orderId);
+    int deleteByPrimaryKey(Long id);
 
     int insert(TbOrderShipping record);
 
@@ -19,7 +19,7 @@ public interface TbOrderShippingMapper {
 
     List<TbOrderShipping> selectByExample(TbOrderShippingExample example);
 
-    TbOrderShipping selectByPrimaryKey(String orderId);
+    TbOrderShipping selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") TbOrderShipping record, @Param("example") TbOrderShippingExample example);
 

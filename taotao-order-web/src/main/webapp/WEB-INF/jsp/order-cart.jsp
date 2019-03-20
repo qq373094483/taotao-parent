@@ -29,7 +29,7 @@
 </div>
 
 <form id="orderForm" class="hide" action="/order/create.html" method="post">
-		<input type="hidden" name="paymentType" value="1"/>
+		<input type="hidden" name="paymentType" value="2"/>
 		<c:forEach items="${cartList }" var="cart" varStatus="status">
 			<c:set var="totalPrice"  value="${ totalPrice + (cart.price * cart.num)}"/>
 			<input type="hidden" name="orderItems[${status.index}].itemId" value="${cart.id}"/>

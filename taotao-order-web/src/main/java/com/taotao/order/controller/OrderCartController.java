@@ -3,6 +3,8 @@ package com.taotao.order.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.jms.Destination;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +43,11 @@ public class OrderCartController {
 	private String CART_KEY;
 	@Autowired
 	private OrderService orderService;
+
+	@Autowired
+	private JmsTemplate jmsTemplate;
+	@Resource(name = "orderCreateTopic")
+	private Destination orderCreateTopicDestination;
 
 	/**
 	 * 展示订单确认页面
@@ -80,7 +88,7 @@ public class OrderCartController {
 	@RequestMapping(value="create", method=RequestMethod.POST)
 	public String createOrder(OrderInfo orderInfo, Model model, HttpServletRequest request, HttpServletResponse response) {
 		//生成订单
-		TaotaoResult result = orderService.createOrder(orderInfo);
+		TaotaoResult<Long> result = orderService.createOrder(orderInfo);
 		//返回逻辑视图
 		model.addAttribute("orderId", result.getData());
 		model.addAttribute("payment", orderInfo.getPayment());
@@ -89,6 +97,7 @@ public class OrderCartController {
 		dateTime = dateTime.plusDays(3);
 		model.addAttribute("date", dateTime.toString("yyyy-MM-dd"));
 		CookieUtils.deleteCookie(request,response,CART_KEY);
+		jmsTemplate.send(orderCreateTopicDestination, session -> session.createTextMessage(result.getData() + ""));
 		return "success";
 	}
 

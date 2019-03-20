@@ -35,6 +35,6 @@
     <!-- 引用dubbo服务 -->
     <dubbo:application name="taotao-order-web"/>
     <dubbo:registry protocol="zookeeper" address="${zookeeper.ipAndPort}"/>
-    <dubbo:reference interface="com.taotao.sso.service.UserService" id="userService" />
-    <dubbo:reference interface="com.taotao.order.service.OrderService" id="orderService" />
+    <dubbo:reference interface="com.taotao.sso.service.UserService" id="userService"  timeout="300000"/>
+    <dubbo:reference interface="com.taotao.order.service.OrderService" id="orderService"  timeout="300000"/>
 </beans>
