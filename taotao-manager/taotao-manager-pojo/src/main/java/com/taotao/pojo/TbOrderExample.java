@@ -1,5 +1,6 @@
 package com.taotao.pojo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -175,62 +176,52 @@ public class TbOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPaymentEqualTo(String value) {
+        public Criteria andPaymentEqualTo(BigDecimal value) {
             addCriterion("payment =", value, "payment");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentNotEqualTo(String value) {
+        public Criteria andPaymentNotEqualTo(BigDecimal value) {
             addCriterion("payment <>", value, "payment");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentGreaterThan(String value) {
+        public Criteria andPaymentGreaterThan(BigDecimal value) {
             addCriterion("payment >", value, "payment");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentGreaterThanOrEqualTo(String value) {
+        public Criteria andPaymentGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("payment >=", value, "payment");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentLessThan(String value) {
+        public Criteria andPaymentLessThan(BigDecimal value) {
             addCriterion("payment <", value, "payment");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentLessThanOrEqualTo(String value) {
+        public Criteria andPaymentLessThanOrEqualTo(BigDecimal value) {
             addCriterion("payment <=", value, "payment");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentLike(String value) {
-            addCriterion("payment like", value, "payment");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentNotLike(String value) {
-            addCriterion("payment not like", value, "payment");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaymentIn(List<String> values) {
+        public Criteria andPaymentIn(List<BigDecimal> values) {
             addCriterion("payment in", values, "payment");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentNotIn(List<String> values) {
+        public Criteria andPaymentNotIn(List<BigDecimal> values) {
             addCriterion("payment not in", values, "payment");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentBetween(String value1, String value2) {
+        public Criteria andPaymentBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("payment between", value1, value2, "payment");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentNotBetween(String value1, String value2) {
+        public Criteria andPaymentNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("payment not between", value1, value2, "payment");
             return (Criteria) this;
         }
@@ -305,62 +296,52 @@ public class TbOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeEqualTo(String value) {
+        public Criteria andPostFeeEqualTo(BigDecimal value) {
             addCriterion("post_fee =", value, "postFee");
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeNotEqualTo(String value) {
+        public Criteria andPostFeeNotEqualTo(BigDecimal value) {
             addCriterion("post_fee <>", value, "postFee");
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeGreaterThan(String value) {
+        public Criteria andPostFeeGreaterThan(BigDecimal value) {
             addCriterion("post_fee >", value, "postFee");
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeGreaterThanOrEqualTo(String value) {
+        public Criteria andPostFeeGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("post_fee >=", value, "postFee");
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeLessThan(String value) {
+        public Criteria andPostFeeLessThan(BigDecimal value) {
             addCriterion("post_fee <", value, "postFee");
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeLessThanOrEqualTo(String value) {
+        public Criteria andPostFeeLessThanOrEqualTo(BigDecimal value) {
             addCriterion("post_fee <=", value, "postFee");
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeLike(String value) {
-            addCriterion("post_fee like", value, "postFee");
-            return (Criteria) this;
-        }
-
-        public Criteria andPostFeeNotLike(String value) {
-            addCriterion("post_fee not like", value, "postFee");
-            return (Criteria) this;
-        }
-
-        public Criteria andPostFeeIn(List<String> values) {
+        public Criteria andPostFeeIn(List<BigDecimal> values) {
             addCriterion("post_fee in", values, "postFee");
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeNotIn(List<String> values) {
+        public Criteria andPostFeeNotIn(List<BigDecimal> values) {
             addCriterion("post_fee not in", values, "postFee");
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeBetween(String value1, String value2) {
+        public Criteria andPostFeeBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("post_fee between", value1, value2, "postFee");
             return (Criteria) this;
         }
 
-        public Criteria andPostFeeNotBetween(String value1, String value2) {
+        public Criteria andPostFeeNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("post_fee not between", value1, value2, "postFee");
             return (Criteria) this;
         }

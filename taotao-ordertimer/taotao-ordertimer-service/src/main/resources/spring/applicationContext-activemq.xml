@@ -26,7 +26,6 @@
     </bean>
 
     <!-- 配置消息的接收者 -->
-    <bean id="orderCreateMessageListener" class="com.taotao.ordertimer.listerner.OrderCreateMessageListener"/>
     <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory" />
         <property name="destination" ref="orderCreateTopic" />

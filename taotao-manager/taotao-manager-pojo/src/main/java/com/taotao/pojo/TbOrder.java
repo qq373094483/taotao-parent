@@ -113,6 +113,29 @@ public class TbOrder extends BasePO {
         }
     }
 
+    //支付类型，1、货到付款，2、支付宝，3、微信,4.余额支付
+    public enum PaymentType {
+        CASH_ON_DELIVERY(1,"已下单"),
+        ALIPAY(2,"已付款"),
+        WECHART(3,"未发货"),
+        BALANCE(4,"已发货");
+        private final int code;
+        private final String desc;
+        PaymentType(int code, String desc) {
+            this.code = code;
+            this.desc = desc;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+    }
+
+
     public Long getId() {
         return id;
     }

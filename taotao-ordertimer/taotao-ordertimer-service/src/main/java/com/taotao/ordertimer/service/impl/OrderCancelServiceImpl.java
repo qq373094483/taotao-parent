@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service
 public class OrderCancelServiceImpl implements OrderCancelService {
@@ -24,11 +25,35 @@ public class OrderCancelServiceImpl implements OrderCancelService {
     @PostConstruct
     public void registZookeeper() {
         try {
-            zookeeperComponent.createEphemeralNode("/delayQueue/orderCancel/server/" + serverPort, serverPort + "");
-            zookeeperComponent.getData("/delayQueue/orderCancel/server/" + serverPort, event -> {
+            String orderCancel = "/delayQueue/orderCancel";
+            String delayQueueServer = orderCancel + "/server/";
+            String serverFlag = "server:" + serverPort;
+            String waitForMission = delayQueueServer + serverFlag + "/waitForMission";
+            String processing = delayQueueServer + serverFlag + "/processing";
+
+            zookeeperComponent.createEphemeralNode(delayQueueServer + serverPort, null);
+            zookeeperComponent.createPersistentNode(waitForMission, null);
+            zookeeperComponent.createPersistentNode(processing, null);
+            //监听服务器是否掉线，如果掉线，取出他的任务给别的服务器
+            zookeeperComponent.getData(delayQueueServer + serverPort, event -> {
                 LOGGER.info("state:{},path:{},type:{}", event.getState(), event.getPath(), event.getType());
-                if (event.getType()==Watcher.Event.EventType.NodeDeleted) {
-                    System.out.println("a");
+                if (event.getType() == Watcher.Event.EventType.NodeDeleted) {
+                    try {
+                        List<String> waitForMissions = zookeeperComponent.getChildren(waitForMission);
+                        List<String> processings = zookeeperComponent.getChildren(processing);
+                    } catch (KeeperException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        zookeeperComponent.deleteNode(waitForMission);
+                        zookeeperComponent.deleteNode(processing);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (KeeperException e) {
+                        e.printStackTrace();
+                    }
                 }
             }, null);
         } catch (KeeperException e) {
