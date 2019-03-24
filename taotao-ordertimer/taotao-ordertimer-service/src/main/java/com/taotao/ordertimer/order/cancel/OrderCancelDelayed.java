@@ -2,6 +2,7 @@ package com.taotao.ordertimer.order.cancel;
 
 import com.taotao.pojo.TbOrder;
 
+import java.util.Objects;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -19,14 +20,14 @@ public class OrderCancelDelayed<T extends Runnable> implements Delayed {
     private final T orderCancelTask;
     private static final AtomicLong atomic = new AtomicLong(0);
 
-    private final long n;
+    private final long num;
 
     public OrderCancelDelayed(T orderCancelTask, TbOrder tbOrder) {
         //30分钟后过期30*60*1000*1000
         this.expireTime = tbOrder.getCreateTime().getTime()+(30*60*1000);
         this.orderCancelTask = orderCancelTask;
         this.tbOrder = tbOrder;
-        this.n = atomic.getAndIncrement();
+        this.num = atomic.getAndIncrement();
     }
 
     /**
@@ -48,7 +49,7 @@ public class OrderCancelDelayed<T extends Runnable> implements Delayed {
                 return -1;
             else if (diff > 0)
                 return 1;
-            else if (n < x.n)
+            else if (num < x.num)
                 return -1;
             else
                 return 1;
@@ -61,17 +62,21 @@ public class OrderCancelDelayed<T extends Runnable> implements Delayed {
         return this.orderCancelTask;
     }
 
+
     @Override
-    public int hashCode() {
-        return super.hashCode();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderCancelDelayed<?> that = (OrderCancelDelayed<?>) o;
+        return expireTime == that.expireTime &&
+                num == that.num &&
+                Objects.equals(tbOrder.getId(), that.tbOrder.getId()) &&
+                Objects.equals(orderCancelTask, that.orderCancelTask);
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (object instanceof OrderCancelDelayed) {
-            OrderCancelDelayed other = (OrderCancelDelayed) object;
-            return other.tbOrder.getId().equals(this.tbOrder.getId());
-        }
-        return false;
+    public int hashCode() {
+
+        return Objects.hash(expireTime, tbOrder, orderCancelTask, num);
     }
 }
