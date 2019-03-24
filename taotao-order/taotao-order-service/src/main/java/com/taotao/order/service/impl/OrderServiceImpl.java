@@ -71,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
 		//订单创建时间
 		orderInfo.setCreateTime(new Date());
 		orderInfo.setOrderNo(orderNo);
-		orderInfo.setUpdateTime(orderInfo.getUpdateTime());
+		orderInfo.setUpdateTime(orderInfo.getCreateTime());
 		//向订单 表插入数据
 		orderMapper.insert(orderInfo);
 		Long orderId = orderInfo.getId();

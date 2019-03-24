@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
     <!-- 配置包扫描器，扫描所有带@Service注解的类 -->
-    <context:component-scan base-package="com.taotao.ordertimer.service,com.taotao.ordertimer.component,com.taotao.ordertimer.listerner"/>
+    <context:component-scan base-package="com.taotao.ordertimer.service,com.taotao.ordertimer.component,com.taotao.ordertimer.listerner,com.taotao.ordertimer.order.*"/>
 
     <!-- 发布dubbo服务 -->
     <!-- 提供方应用信息，用于计算依赖关系 -->

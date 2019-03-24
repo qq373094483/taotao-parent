@@ -1,10 +1,12 @@
 package com.taotao.ordertimer.listerner;
 
-import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.taotao.mapper.TbOrderMapper;
+import com.taotao.ordertimer.component.OrderCancelServerRigster;
 import com.taotao.ordertimer.component.ZookeeperComponent;
+import com.taotao.ordertimer.service.OrderCancelService;
+import com.taotao.ordertimer.order.cancel.OrderCancelTask;
+import com.taotao.ordertimer.order.cancel.OrderCancelDaemonThread;
 import com.taotao.pojo.TbOrder;
-import com.taotao.pojo.TbOrderExample;
 import org.apache.zookeeper.KeeperException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,20 +17,27 @@ import javax.annotation.PostConstruct;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
-import java.util.List;
 
 @Component
 public class OrderCreateMessageListener implements MessageListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderCreateMessageListener.class);
     @Autowired
     private ZookeeperComponent zookeeperComponent;
-    private static final String WAIT_FOR_TASK_PATH = "/delayQueue/orderCancel/server";
+    @Autowired
+    private OrderCancelServerRigster orderCancelServerRigster;
+    @Autowired
+    private TbOrderMapper tbOrderMapper;
 
+    @Autowired
+    private OrderCancelService orderCancelService;
+    public static final String ALL_TASK_PATH = "/delayQueue/orderCancel/server/allTask";
+    @Autowired
+    private OrderCancelDaemonThread orderCancelDaemonThread;
     @PostConstruct
     public void init() {
         //待执行任务列表
         try {
-            zookeeperComponent.createPersistentNode(WAIT_FOR_TASK_PATH, null);
+            zookeeperComponent.createPersistentNode(ALL_TASK_PATH, null);
         } catch (KeeperException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -36,9 +45,8 @@ public class OrderCreateMessageListener implements MessageListener {
         }
     }
 
-    @Autowired
-    private TbOrderMapper tbOrderMapper;
 
+    //生产者先把数据放入redis,再从消费者处理完业务后，删除掉redis中的数据
     @Override
     public void onMessage(Message message) {
         try {
@@ -46,16 +54,11 @@ public class OrderCreateMessageListener implements MessageListener {
             TextMessage textMessage = (TextMessage) message;
             String strId = textMessage.getText();
             Long orderId = Long.parseLong(strId);
-            TbOrderExample tbOrderExample = new TbOrderExample();
-            TbOrderExample.Criteria criteria = tbOrderExample.createCriteria();
-            criteria.andIdEqualTo(orderId);
-            criteria.andStatusEqualTo(TbOrder.Status.ORDERS.getCode());
-            criteria.andPaymentTypeGreaterThan(TbOrder.PaymentType.CASH_ON_DELIVERY.getCode());
-            List<TbOrder> tbOrders = tbOrderMapper.selectByExample(tbOrderExample);
-            if (CollectionUtils.isNotEmpty(tbOrders)) {
-                System.out.println(tbOrders.get(0).getId());
-                zookeeperComponent.createPersistentNode(WAIT_FOR_TASK_PATH+"/"+tbOrders.get(0).getId(), null);
-            }
+            TbOrder tbOrder = tbOrderMapper.selectByPrimaryKey(orderId);
+            orderCancelDaemonThread.put(new OrderCancelTask(tbOrder,tbOrderMapper),tbOrder);
+//            zookeeperComponent.createPersistentNode(ALL_TASK_PATH +"/"+orderId, null);
+//            orderCancelService.execute(orderId);
+//            zookeeperComponent.deleteNode(ALL_TASK_PATH +"/"+orderId);
         } catch (Exception e) {
             LOGGER.error("e:{}", e);
         }

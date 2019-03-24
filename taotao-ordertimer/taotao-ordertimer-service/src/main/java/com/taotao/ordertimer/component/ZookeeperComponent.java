@@ -21,7 +21,7 @@ public class ZookeeperComponent implements Watcher {
     @Value("${ZOOKEEPER.IPANDPORT}")
     private String zookeeperIpAndPort;
     private ZooKeeper zooKeeper;
-    private static final int SESSION_TIME_OUT = 2000;
+    private static final int SESSION_TIME_OUT = 20000;
     /**
      * 连接zookeeper为异步线程，所以要使用他变成同步
      */
@@ -47,6 +47,10 @@ public class ZookeeperComponent implements Watcher {
                 e.printStackTrace();
             }
         }));
+    }
+
+    public Stat get(String path) throws KeeperException, InterruptedException {
+        return zooKeeper.exists(path,false);
     }
 
     public ZooKeeper getZookeeper() {
@@ -200,7 +204,11 @@ public class ZookeeperComponent implements Watcher {
      *    
      */
     public Stat setData(String path, String data) throws KeeperException, InterruptedException {
-        Stat stat = zooKeeper.setData(path, data.getBytes(), -1);
+        //version为-1时，表示不根据版本号去设置数据
+        return setData(path, data, -1);
+    }
+    public Stat setData(String path, String data,Integer version) throws KeeperException, InterruptedException {
+        Stat stat = zooKeeper.setData(path, data!=null?data.getBytes():null, version);
         return stat;
     }
 
