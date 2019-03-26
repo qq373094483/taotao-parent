@@ -4,9 +4,8 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.taotao.mapper.TbOrderMapper;
 import com.taotao.ordertimer.component.OrderCancelServerRigster;
 import com.taotao.ordertimer.component.ZookeeperComponent;
-import com.taotao.ordertimer.service.OrderCancelService;
-import com.taotao.ordertimer.order.cancel.OrderCancelTask;
 import com.taotao.ordertimer.order.cancel.OrderCancelDaemonThread;
+import com.taotao.ordertimer.service.OrderCancelService;
 import com.taotao.pojo.TbOrder;
 import com.taotao.pojo.TbOrderExample;
 import org.apache.zookeeper.KeeperException;
@@ -73,7 +72,7 @@ public class OrderCancelServiceImpl implements OrderCancelService {
             //加入等待队列
 
             System.out.println(tbOrder.getId());
-            orderCancelDaemonThread.put(new OrderCancelTask(tbOrder,tbOrderMapper),tbOrder);
+            orderCancelDaemonThread.put(tbOrderMapper,tbOrder);
 
             return;
         }
