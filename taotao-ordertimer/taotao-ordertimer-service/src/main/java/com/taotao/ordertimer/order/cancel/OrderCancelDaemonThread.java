@@ -1,5 +1,6 @@
 package com.taotao.ordertimer.order.cancel;
 
+import com.taotao.mapper.TbOrderMapper;
 import com.taotao.pojo.TbOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,9 +74,9 @@ public class OrderCancelDaemonThread {
      * task 任务
      * 用户为问题设置延迟时间
      */
-    public void put(Runnable task, TbOrder tbOrder) {
+    public void put(TbOrderMapper tbOrderMapper,TbOrder tbOrder) {
         //创建一个任务
-        OrderCancelDelayed orderCancelDelayed = new OrderCancelDelayed(task,tbOrder);
+        OrderCancelDelayed orderCancelDelayed = new OrderCancelDelayed(tbOrderMapper,tbOrder);
         //将任务放在延迟的队列中
         delayQueue.put(orderCancelDelayed);
     }

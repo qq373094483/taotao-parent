@@ -1,5 +1,6 @@
 package com.taotao.ordertimer.order.cancel;
 
+import com.taotao.mapper.TbOrderMapper;
 import com.taotao.pojo.TbOrder;
 
 import java.util.Objects;
@@ -22,10 +23,11 @@ public class OrderCancelDelayed<T extends Runnable> implements Delayed {
 
     private final long num;
 
-    public OrderCancelDelayed(T orderCancelTask, TbOrder tbOrder) {
+    public OrderCancelDelayed(TbOrderMapper tbOrderMapper, TbOrder tbOrder) {
         //30分钟后过期30*60*1000*1000
         this.expireTime = tbOrder.getCreateTime().getTime()+(30*60*1000);
-        this.orderCancelTask = orderCancelTask;
+        OrderCancelTask orderCancelTask = new OrderCancelTask(tbOrder, tbOrderMapper);
+        this.orderCancelTask = (T)orderCancelTask;
         this.tbOrder = tbOrder;
         this.num = atomic.getAndIncrement();
     }
