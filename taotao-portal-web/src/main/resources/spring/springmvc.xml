@@ -26,7 +26,7 @@
     <mvc:resources location="/static/js/" mapping="/js/**"/>-->
     <!-- 多媒体解析器 -->
     <!-- 引用dubbo服务 -->
-    <dubbo:application name="taotao-manager-web"/>
+    <dubbo:application name="taotao-protal-web"/>
     <dubbo:registry protocol="zookeeper" address="${zookeeper.ipAndPort}"/>
     <dubbo:reference interface="com.taotao.content.service.ContentService" id="contentService" />
     <!--<dubbo:reference interface="com.taotao.service.ItemService" id="itemService" />
