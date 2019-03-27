@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.taotao</groupId>
-            <artifactId>taotao-manager-pojo</artifactId>
+            <artifactId>taotao-manager-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
