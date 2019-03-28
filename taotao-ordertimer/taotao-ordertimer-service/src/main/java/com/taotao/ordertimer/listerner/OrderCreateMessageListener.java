@@ -3,7 +3,6 @@ package com.taotao.ordertimer.listerner;
 import com.taotao.mapper.TbOrderMapper;
 import com.taotao.ordertimer.component.ZookeeperComponent;
 import com.taotao.ordertimer.order.cancel.OrderCancelDaemonThread;
-import com.taotao.ordertimer.service.OrderCancelService;
 import com.taotao.pojo.TbOrder;
 import org.apache.zookeeper.KeeperException;
 import org.slf4j.Logger;
@@ -24,9 +23,6 @@ public class OrderCreateMessageListener implements MessageListener {
     private ZookeeperComponent zookeeperComponent;
     @Autowired
     private TbOrderMapper tbOrderMapper;
-
-    @Autowired
-    private OrderCancelService orderCancelService;
     @Value("${SERVER.PORT}")
     private Integer serverPort;
     @Value("${HOSTNAME}")
@@ -62,7 +58,6 @@ public class OrderCreateMessageListener implements MessageListener {
             TbOrder tbOrder = tbOrderMapper.selectByPrimaryKey(orderId);
             orderCancelDaemonThread.put(tbOrderMapper,tbOrder);
             zookeeperComponent.createPersistentNode(processing +"/"+orderId, null);
-            orderCancelService.execute(orderId);
         } catch (Exception e) {
             LOGGER.error("e:{}", e);
         }

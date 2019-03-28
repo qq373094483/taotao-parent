@@ -1,9 +1,11 @@
 package com.taotao.ordertimer.order.cancel;
 
 import com.taotao.mapper.TbOrderMapper;
+import com.taotao.ordertimer.component.ZookeeperComponent;
 import com.taotao.pojo.TbOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -26,7 +28,9 @@ import java.util.concurrent.Executors;
 public class OrderCancelDaemonThread {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderCancelDaemonThread.class);
-    Executor executor = Executors.newFixedThreadPool(100);
+    private Executor executor = Executors.newFixedThreadPool(100);
+    @Autowired
+    private ZookeeperComponent zookeeperComponent;
     /**
      * 创建一个最初为空的新 DelayQueue
      */
@@ -76,7 +80,7 @@ public class OrderCancelDaemonThread {
      */
     public void put(TbOrderMapper tbOrderMapper,TbOrder tbOrder) {
         //创建一个任务
-        OrderCancelDelayed orderCancelDelayed = new OrderCancelDelayed(tbOrderMapper,tbOrder);
+        OrderCancelDelayed orderCancelDelayed = new OrderCancelDelayed(tbOrderMapper,tbOrder,zookeeperComponent);
         //将任务放在延迟的队列中
         delayQueue.put(orderCancelDelayed);
     }
